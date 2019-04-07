@@ -1,0 +1,246 @@
+Hola! Aca voy a poner todo lo que voy aprendiendo de haskell. 
+La idea es que a medida que vaya avanzando voy poniendo lo que voy aprendiendo en diferentes carpetas. 
+Para eso dependiendo de la clase voy a estar creando carpetas nuevas de lo que voy haciendo segun sea conveniente (si encuentro algun criterio de agrega aca al titulo)
+
+Haskell funciona mediante a lo que yo le voy escribiendo en la consola. por ejemplo:
+
+-- (comentarios en Haskell)
+{--Comentarios extendidos--}
+
+Para hacer que funcione en la consola hay que ir a la carpeta donde esta el archivo de 
+haskell (con cd \nombreDeLaCarpeta\), despues ejecutar el comando ghci para que entre 
+a prelude y despues poner :load nombreDelArchivo. (opcion 2 ghci nombreDelArchivo.hs)
+
+Recordar que una vez hayan habido cambios hay que hacer el comando :r para actualizar en la consola despues de haberlo grabado.
+
+Comandos del ghci:
+:r - Actualiza los cambios que hice en el archivo.
+:t - Muestra el tipo de todo lo que le ponga despues de un espacio. 
+
+
+Referencias de lo que voy escribiendo:
+ /-\ Funciones o conocimiento nuevo 
+[] tipo de dato 
+
+01 - Primera clase (Hacer una carpeta por clase)    
+    
+    Ejemplo.hs y Modulo 1 (word modulo 1)
+
+        (0) Trabajando con HK podemos ingresar cuentas asi nomas y apretar enter o usar las funciones que vienen por default.
+            /-\Ej: 2+3 luego apretar enter
+            /-\ /not\ True
+            /-\ /lenght\ [string]
+            Los operadores puede usarse con notacion prefija (operador operando operando)
+            /-\ Ej /(+)\ 2 5
+
+
+        (1) 2 funciones como ejemplo:
+            Las funciones de HK se definen en el archivo y para que funcionen tengo que poner el nombre de la funcion 
+            y el valor que le ingreso.
+
+            --1--
+            doble numero = 4*numero (la funcion que estoy definiendo)
+            para que funcione en HK tengo que escribir en la consola doble [entero] para la primera o esPositivo [entero]
+            
+            --2--
+            (en el segundo ejemplo si quiero que funcione los negativos tengo que ponerlo entre parentesis)
+        
+        (2) Ejemplos del apunte de clase
+
+            --1--
+            Es igual al 1.2
+            Tipado es la forma de escribir lo que hace la funcion y los datos que recibe
+            El tipado de esa funcione es aproboAlumno :: int -> Bool
+
+            --1.1--
+            Se utiliza el comando :t para ver el tipo de lo que sea que le mande despues del espacio, 
+
+            --2--
+            Puedo asignar valores a una variable de forma comun y corriente.
+             --podemos ver que si hago eso y hago un :t en edad el resultado es edadd :: Integrer
+             --Edad en este caso es una variable no es una funcion ya que al no tener parametros no se puede aplicar.
+
+            --3--
+            De la misma forma que en 2 podemos hacer lo mismo con un char. para comparar podemos usar :t [char] y :segundoNombreDeHomero y va a dar lo mismo
+
+            --4--
+            Basica funcion como la de prueba, si pongo un valor lo divide por 40 para saber la cantidad de dolares que tengo.
+
+            --5-- 
+            El compilador siempre hace el chequeo que define si una funcion es valida o no. Si le saco el -- al archivo no me deja actualizar
+            De la misma forma no funciona si defino -- la segunda opcion con doble, estoy dando una inicializacion que no es valida.
+            A esto se le llama un chequeo estatico de tipos
+
+            --6--
+            Usando el max con esa estructura podemos comparar 2 variables del mismo tipo.
+            Estas variables pueden ser int con int, o lo que sea siempre y cuando sean del mismo tipo.
+
+            Consultar por que no funciona el max y por que si funciona el semaforo
+
+    02 - Modulo2
+
+        --1--
+        Esta es la funcion compuesta, esto significa que primero pasa por un doble y luego por el otro, por eso se genera el cuadruple al combinar uno con el otro
+
+        --2-- 
+        Asi creamos esta funcion que suma 3 a lo que le estoy pasando
+
+
+        --3--
+        En esta se puede ver como funciona la cuenta que hace en dobleMasDos lo que pasa es que primero se multiplica lo que le pasos
+        y despues toma lo que
+        Vemos como  funciona la precedencia. Primero se hace
+        Tambien nos damos cuenta que podemos simplificar la x y los parentesis a esto se le llama notacion point free
+
+        --4--
+        Ordenamos las 2 funciones de forma inversa para demostrar la importancia de la precedencia en HK
+
+        --5--
+        /even\ es una funcion que viene por default en HK y sirve para dar un booleano en caso que sea par o impar
+        --Consultar por que no me funciona si le saco los parentesis.
+
+        --6--
+        TUPLAS: (ver mejor modulo 2 --6--)
+        Tuplas son combinaciones de datos para que puedan ser utilizados en conjunto (nombre,edad)
+        /snd\ Es una funcion que dada una tupla devuelve el segundo valor de la misma (edad en este caso) 
+        puedo usar esa funcion para que se aplique pero es mejor declarar otra variable. 
+        hacer snd (nombre, edad) = edad (nombre, edad) 
+        si vemos el tipo vemos como funciona jaja
+
+        --7--
+        Agregando una funcion que compare si una edad es mayor o menor que 18 y combinandola a la anterior 
+        podemos obtener el resultado final, se le ingresa una tupla 
+
+        --8-- Se ve mejor en el modulo 2 numero 9
+        Puedo definir un tipo persona que tenga como parametros las variables como estan.
+        luego darle valores como lo haria siempre. y hacer esMayorDeEdad laura y sale como resultado True
+
+        --9--
+        No tengo limite para crear tipos, las tuplas pueden ser de mas de 2
+        --Por que me deberia funcionar el tema de type con 3 variables pero no me funciona. {todo lo que esta entre las llaves}
+
+        --10--
+        La funcion es menor edad primero calcula la edad de laura, despues se fija si es mayor de edad y si es mayor de edad la cambia, o biceversa.
+
+        --11--
+        /mod\: permite conocer el resto de la division de dos numeros.
+        Se le tienen que pasar si o si 2 parametros.
+        --En el apunte se pone a hacer cosas con funciones con un solo parametro que me parecio mas avanzado de lo que deberia.
+
+        --12--
+        funciones++:
+        Podemos hacer funciones que le sumen un valor tipo c++
+
+        --13--
+        /head\: Esta funcion toma el primer elemento de una lista.
+        Se crea una funcion que compara si la letra es una p. (totalemente inutil porque no hace falta jaja)
+        
+        --14--
+
+
+
+(02) Segunda clase
+
+    Primero voy a poner en 01 los apuntes y funciones que vayan a mostrar durante la clase.
+
+    (01) Apuntes de clase
+        Listado de palabras clave que tenemos que saber. Hay que saberlas!
+        --1-- record sintax con formas de asociar distintos datos.
+        Cuando defino uno con igual al otro pero con otro nombre
+        En este caso fede siempre va a ser igual que leo pero con diferente nombre.
+        Si aplico una funcion que cambia la fecha de cumpoleanos v a a hacer el cambio solamente en ese momento. deopues vuelve.
+                                                                                        
+        --Listas--
+
+        /null\ Recibe como parametro una lista y responde si es igual a una lista vacia.
+        
+    (02) Modulo 3 - Listas Tuplas y datos definidos por el usuario
+
+        -*- Listas
+            --1--
+            Para definir una lista se la nombre y se pone el contenido
+
+            --2--
+            Se puede tambien definir con 2 puntos para que se autocomplete.
+            Pero solo lo pude hacer funcionar con 1 valor y oto que autocomplete con 3 se rompe
+
+            --3--
+            Puede cuando lo hago por cotas puede ser ascendente o descendente
+
+            --4--
+            Definicion de cabeza y cola de la lista (ver apunte) //--Que onda con lo que se usa en parentesis es solo para escribir?
+            /head\ Devuelve la cabeza de la lista
+            /tail\ Devuelve la cola de la lista
+
+            --5--
+            Otras funciones que se puede utilizar:
+            /length\ Devuelve la cantidad de elementos que tiene una lista
+            /sum\ Suma los elementos de una lista de numeros
+            /++\ Concatena dos Listas
+            (x:xs) ++ (x:xs)
+            /take\Toma los primeros n numeros de la lista
+            take 3 (x:xs)
+            /drop\ Devuelve la lista sin los primeros n numeros
+            drop 3 (x:xs)
+            /(!!)\ Devuelve el elemente que esta en la posicion n (0 es el primero)
+            (x:xs) !! n
+            /reverse\ Devuelve la lista con los elementos en orden inverso.
+            reverse (x:xs)
+        
+        -*- Tuplas
+            Las tuplas son combinaciones de datos los cuales no tienen por que ser del mismo tipo.
+            Con las tuplas podemos usar el pattern matching que es utilizar el patron de las tuplas para hacer funciones (ejemplo --8--)
+            
+            --6--
+            Para crearlas se hace el nombre de la tupla y los datos separados por comas.
+            Se pueden hacer tuplas con lista adentro.
+            Pueden tener como elementos otra tupla
+
+            --7--
+            Funciones que se aplican en las tuplas:
+            /fst\ devuelve el primer valor de la tupla
+            /snd\ devuelve el segundo valor de la tupla
+            Estas 2 funciones solo sirven cuando son tuplas de 2 elementos.
+
+            --8--
+            usando pattern matching lo que hago es ignorar a travez del _ el primer valor y la funcion lo que hace es devolver el segundo valor.
+            entonces le ingreso una tupla de 2 elementos y devuelve solo el segundo.
+            lo mismo puedo aplicarlo para tuplas de 3 o n elementos.
+
+            --9-- Sinonimos de tipo --Volver a revisar el tema de asdf :: dsf -> asdf ->
+         
+            Cuando creo un type creo lo que se llama sinonimo de tipo, que es una estructura de la cual se basan las tuplas de este tipo.
+            Cuando defino el tipado de la funcion de donde a donde va
+
+            --10--
+            /min\ funcion que devuelve el numero menor entre 2 valores que se le dan.
+
+            --11-- Tipos propios (Data)
+            Para los casos que queremos modelar diferentes tipos que son todos iguales.
+            Este caso se lee como el tipo de dato Persona utiliza el constructor de nombre Persona (del lado derecho del =) que recibe un string y un int
+
+            --12-- Pattern matching sobre Data
+            Para hacer pattern matching sobre data hay que definir funciones similar a lo que haciamos con tuplas
+            nombre y edad son 2 funciones que lo que hacen es pattern matching para que devuelvan los valores buscados.
+
+            --13-- Diferencias entre data y tupla
+            La tupla es menos intuitiva, y es mas una solucion general, tiene que ser conocida por quien la usa
+            La estructura de datos por el contrario es mas expresiva con lo qeu se puede hacer
+
+            --14-- Acomplamiento en Data
+            Volvemos a la funcion de si es mayor de edad
+
+            --15-- Record syntax con Data
+            Vemos como se complica a medida que se hace mas grande el data.
+            para definir un dato se hace aun mas inexpresivo
+
+            --16--
+            Forma correcta de definir un dato ahora no solo que es expresivo con lo que hago sino que tambien cuando defino
+            a una persona puedo incluso alterar el orden (como se puede ver en edadOk y telefonoOk)
+            Con este tipo de dato no hace falta definir funciones del tipo pattern matching, ya es omplicito lo que estoy buscando
+
+            --17--
+            Para que un dato se pueda mostrar correctamente al ser llamdo tenemos que poner al final de la definicion del dato deriving (Show)
+
+            --18-- Multiples constructores
+            Sexo tiene 2 constructores masculino y femenino ambos sin parametros
