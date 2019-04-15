@@ -37,3 +37,24 @@ especialidad (Planta _ puntosDeVida generaSoles poderDeAtaque ) | (poderDeAtaque
 
 --Item b
 esPeligroso (Zombie _ nivelDeMuerte articulos _) = nivelDeMuerte > 10 || articulos > 1
+
+--Punto 3
+linea1 = LineaDeDefensa { 
+	plantas =[sunFlower, sunFlower, sunFlower], 
+	zombies =[]
+}
+
+linea2 = LineaDeDefensa { 
+	plantas = [peaShooter, peaShooter, sunFlower, nut], 
+	zombies = [zombieBase, paperZombie]
+}
+
+linea3 = LineaDeDefensa { 
+	plantas = [sunFlower, peaShooter], 
+	zombies = [gargantuar, zombieBase, zombieBase]
+}
+
+linea4 = LineaDeDefensa { 
+	plantas = [peaShooter], 
+	zombies = [zombieBase]
+}
