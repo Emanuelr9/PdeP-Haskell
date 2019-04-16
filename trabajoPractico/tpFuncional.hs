@@ -58,3 +58,33 @@ linea4 = LineaDeDefensa {
 	plantas = [peaShooter], 
 	zombies = [zombieBase]
 }
+
+--Item a
+agregarPlantaA planta linea = agregarPlantaALista (plantas linea) planta
+agregarPlantaALista  [] planta = [planta]
+agregarPlantaALista (x:xs) planta = x : agregarPlantaALista xs planta
+
+agregarPlanta2 planta linea  = reverse $ planta : (reverse . plantas $ linea) --otra forma media rara de agregar al final
+
+agregarZombieA zombie linea = (zombies linea) ++ [zombie]
+
+--Item b
+ataqueDePlantasEsMenor linea = (totalDeAtaque . plantas $ linea) < (totalDeMordiscos . zombies $ linea)
+totalDeMordiscos [] = 0
+totalDeMordiscos (x:xs) =  poderDeMordida x + totalDeMordiscos xs
+totalDeAtaque [] = 0
+totalDeAtaque (x:xs) = poderDeAtaque x + totalDeAtaque xs
+
+todosLosZombiesSonPeligrosos linea = hayPeligro . zombies $ linea
+hayPeligro [] = True
+hayPeligro (x:xs) = esPeligroso x && hayPeligro xs
+
+hayZombies linea = (length . zombies $ linea) > 0
+
+estaEnPeligro linea = ataqueDePlantasEsMenor linea  || (todosLosZombiesSonPeligrosos linea && hayZombies linea)
+
+--Item C
+necesitaSerDefendida linea = esProvedora . plantas $ linea
+esProvedora [] = True
+esProvedora (x:xs) = (especialidad x == "Provedora") && esProvedora xs
+
