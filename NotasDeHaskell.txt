@@ -16,7 +16,6 @@ Recordar que una vez hayan habido cambios hay que hacer el comando :r para actua
 Comandos del ghci:
 :r - Actualiza los cambios que hice en el archivo.
 :t - Muestra el tipo de todo lo que le ponga despues de un espacio. 
-:quit salir del ghci
 
 
 Referencias de lo que voy escribiendo:
@@ -150,24 +149,7 @@ Referencias de lo que voy escribiendo:
         Cuando defino uno con igual al otro pero con otro nombre
         En este caso fede siempre va a ser igual que leo pero con diferente nombre.
         Si aplico una funcion que cambia la fecha de cumpoleanos v a a hacer el cambio solamente en ese momento. deopues vuelve.
-
-        --2--
-        Puedo crear otra persona exactamente igual igualando las nuevas variables.
-        En este caso alejandro es igual a leo pero con nombre alejandro
-
-        --3--
-        la funcion cumpleanios lo que hace es alguien (de forma alumno ) entra en la edad y de ese alguien le suma un valor
-
-        --4-- Ver si una lista esta vacia 3 null diferentes, no pude hacer que funcione ninguno por algun motivo
-        
-        --5--
-        /length\ pero usando pattern matching
-
-        --5-- Agregar un elemento a la lista (crear una lista nueva con un elemento mas)
-
-
-
-
+                                                                                        
         --Listas--
 
         /null\ Recibe como parametro una lista y responde si es igual a una lista vacia.
@@ -263,50 +245,6 @@ Referencias de lo que voy escribiendo:
             --18-- Multiples constructores
             Sexo tiene 2 constructores masculino y femenino ambos sin parametros
 
-(03) - Clase 3
-
-    01 - ApunteDeClase
-Re escuchar minuto 25
-        --1-- 
-
-        --2--
-        4! = 1*2*3*4 =24
-
-        --3-- Triangulo de pascal es el que se suman los extremos para abajo. dada una columna y una posicion queremos calcular
-
-        --4--
-        Evaluacion diferida, cuando hago una recursividad sin caso base, lo bueno es que no se evaluan los parametros que no se necesitan
-
-        /take n\ los elementos y parametros que se toman sol los 
-
-        Evaluacion ansiosa: lo contrario, se evaluan todos los valores
-
-        --5-- E.Diferida ejemplo
-
-        Si yo hago  > foo de 3 (sqrt(-1)) en el main va a evaluar toda la funcion pero no va a calcular sqrt (la raiz cuadrada de -1)
-
-        --6-- Ejercicio de local de hamburgueza
-
-        hasta la primera parte se soluciona pero no es efectivo al 100% (escuchar 1:10)
-
-        --6.2-- Utilizando 2 constructores
-        Si utilizo 2 constructores pudeo generar lo mismo, puedo tener la basica y la personalizada con lo que quiero
-
-        --6.3-- Hamburgueza completa
 
 
-        --6.4-- Puedo tener un caso en el que 
-        Si le quiero agregar un extra a una basico
-
-        --8--Agregar un extra a una hamburgueza
-
-        --9--Sacar un elemento a la hamburgueza si se queda sin extras se hace basica.
-        3 casos a evaluar:
-            1 la hamburguesa se convierte en basica
-            2
-
-        --10-- Dado un pedido (que se crea, queremos saber el precio de lo que se pide)
-
-        --11-- Tenemos que hacer que se preparen hamburguesa
-
-        --12-- Queremos preparar una determinada cantidad de hamburguesas
+!Prueba de git Bruno¡
