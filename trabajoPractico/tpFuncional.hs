@@ -1,21 +1,21 @@
 --Punto 1
 data Planta = Planta {
-    nombre::String,
-	puntosDeVida :: Int,
-    generaSoles :: Int,
-    poderDeAtaque :: Int
+nombre::String,
+puntosDeVida :: Int,
+generaSoles :: Int,
+poderDeAtaque :: Int
 }deriving (Show)
 
 data Zombie = Zombie {
-    nombreZombie :: String,
-    nivelDeMuerte :: Int,
-    articulos :: Int,
-    poderDeMordida :: Int
+nombreZombie :: String,
+nivelDeMuerte :: Int,
+articulos :: Int,
+poderDeMordida :: Int
 }deriving (Show)
 
 data LineaDeDefensa = LineaDeDefensa { 
-	plantas ::[Planta], 
-	zombies :: [Zombie]
+plantas ::[Planta], 
+zombies :: [Zombie]
 } deriving (Show)
 
 peaShooter = Planta {nombre = "Peashooter" , puntosDeVida = 5, generaSoles =0, poderDeAtaque = 2}
@@ -40,24 +40,27 @@ esPeligroso (Zombie _ nivelDeMuerte articulos _) = nivelDeMuerte > 10 || articul
 
 --Punto 3
 linea1 = LineaDeDefensa { 
-	plantas =[sunFlower, sunFlower, sunFlower], 
-	zombies =[]
+plantas =[sunFlower, sunFlower, sunFlower], 
+zombies =[]
 }
 
 linea2 = LineaDeDefensa { 
-	plantas = [peaShooter, peaShooter, sunFlower, nut], 
-	zombies = [zombieBase, paperZombie]
+plantas = [peaShooter, peaShooter, sunFlower, nut], 
+zombies = [zombieBase, paperZombie]
 }
 
 linea3 = LineaDeDefensa { 
-	plantas = [sunFlower, peaShooter], 
-	zombies = [gargantuar, zombieBase, zombieBase]
+plantas = [sunFlower, peaShooter], 
+zombies = [gargantuar, zombieBase, zombieBase]
 }
 
 linea4 = LineaDeDefensa { 
-	plantas = [peaShooter], 
-	zombies = [zombieBase]
+plantas = [peaShooter], 
+zombies = [zombieBase]
 }
+
+agregarPlantaA :: Planta -> LineaDeDefensa -> [Planta]
+agregarZombieA :: Zombie -> LineaDeDefensa -> [Zombie]
 
 --Item a
 agregarPlantaA planta linea = agregarPlantaALista (plantas linea) planta
@@ -65,6 +68,7 @@ agregarPlantaALista  [] planta = [planta]
 agregarPlantaALista (x:xs) planta = x : agregarPlantaALista xs planta
 
 agregarPlanta2 planta linea  = reverse $ planta : (reverse . plantas $ linea) --otra forma media rara de agregar al final
+agregarPlanta3 planta linea  = (plantas linea) ++ [planta]                    --deberíamos usar esta forma
 
 agregarZombieA zombie linea = (zombies linea) ++ [zombie]
 
@@ -83,8 +87,15 @@ hayZombies linea = (length . zombies $ linea) > 0
 
 estaEnPeligro linea = ataqueDePlantasEsMenor linea  || (todosLosZombiesSonPeligrosos linea && hayZombies linea)
 
---Item C
+--Item c
 necesitaSerDefendida linea = esProvedora . plantas $ linea
 esProvedora [] = True
 esProvedora (x:xs) = (especialidad x == "Provedora") && esProvedora xs
 
+--Item d
+--i. En el caso de comparar la sumatoria del ataque de las plantas con respecto a la sumatoria de mordiscos de los zombies, esta se detendrá cuando la sumatoria de los zombies sea mayor al de las plantas sin la necesidad de recorrer de forma infinita los zombies, por el concepto de evaluación diferida.
+--   Y si contemplamos que los zombies son infinitos siempre serán superiores con respecto a la sumatoria del ataque de las plantas de modo tal que evaluar que todos los zombies son peligrosos y que exista al menos 1 no sería necesario para determinar si la línea està en peligro.
+--ii. Al consultar si una línea con cantidad infinita de Peashooter necesita ser defendida, esta daría falso y no necesitaría recorrer toda la lista por concepto de evalación diferida.
+--    Pero si hablamos de una cantidad infinita de Sunflower, está recorrerá toda la lista sin dar respuesta porque se pide saber si todas las plantas son proveedores, y en este caso todas incluye a infinitos.
+
+--Punto 4
