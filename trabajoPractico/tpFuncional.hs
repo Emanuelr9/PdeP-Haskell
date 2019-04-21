@@ -59,6 +59,21 @@ plantas = [peaShooter],
 zombies = [zombieBase]
 }
 
+lineaA = LineaDeDefensa { 
+  plantas = [sunflower, peaShooter], 
+  zombies = repeat zombieBase
+}
+
+lineaB = LineaDeDefensa { 
+  plantas = repeat peaShooter, 
+  zombies = [gargantuar, zombieBase, zombieBase]
+}
+
+lineaC = LineaDeDefensa { 
+  plantas = repeat sunFlower, 
+  zombies = [gargantuar, zombieBase, zombieBase]
+}
+
 agregarPlantaA :: Planta -> LineaDeDefensa -> [Planta]
 agregarZombieA :: Zombie -> LineaDeDefensa -> [Zombie]
 
@@ -97,5 +112,11 @@ esProvedora (x:xs) = (especialidad x == "Provedora") && esProvedora xs
 --   Y si contemplamos que los zombies son infinitos siempre serán superiores con respecto a la sumatoria del ataque de las plantas de modo tal que evaluar que todos los zombies son peligrosos y que exista al menos 1 no sería necesario para determinar si la línea està en peligro.
 --ii. Al consultar si una línea con cantidad infinita de Peashooter necesita ser defendida, esta daría falso y no necesitaría recorrer toda la lista por concepto de evalación diferida.
 --    Pero si hablamos de una cantidad infinita de Sunflower, está recorrerá toda la lista sin dar respuesta porque se pide saber si todas las plantas son proveedores, y en este caso todas incluye a infinitos.
+--
+--CORRECCION:
+--i. Si se consulta con una linea de infinitos zombies el programa se colgara al no poder terminar de recorrer la lista en la funcion hayPeligro, ya que esta es recursiva y su salida solo se realiza con la lista vacia "[]". 
+--Hacer la prueba con la lineaA.
+--
+--ii. la respuesta esta bien, se puede agregar de ejemplo probar con la lineaB para los peashooter y con la lineaC para los Sunflower.
 
 --Punto 4
