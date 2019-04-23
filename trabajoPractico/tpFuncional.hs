@@ -2,14 +2,14 @@
 data Planta = Planta {
 nombre::String,
 puntosDeVida :: Int,
-generaSoles :: Int,
+cantidadDeSoles :: Int,
 poderDeAtaque :: Int
 }deriving (Show)
 
 data Zombie = Zombie {
 nombreZombie :: String,
 nivelDeMuerte :: Int,
-articulos :: Int,
+articulos :: [String], --creo que habria que listar los accesorios y no solo contarlos, ya que a futuro se pueden agregar a la lista mas accesorios, y con un length alcanza para saber la cantidad
 poderDeMordida :: Int
 }deriving (Show)
 
@@ -18,25 +18,31 @@ plantas ::[Planta],
 zombies :: [Zombie]
 } deriving (Show)
 
-peaShooter = Planta {nombre = "Peashooter" , puntosDeVida = 5, generaSoles =0, poderDeAtaque = 2}
-repeater = Planta {nombre = "Repeater" , puntosDeVida = 5, generaSoles =0, poderDeAtaque = 4} -- hacer con copia?
-sunFlower = Planta {nombre = "Sunflower" , puntosDeVida = 7, generaSoles =1, poderDeAtaque = 0}
-nut = Planta {nombre = "Nut" , puntosDeVida = 100, generaSoles =0, poderDeAtaque = 0}
+peaShooter = Planta {nombre = "PeaShooter" , puntosDeVida = 5, cantidadDeSoles =0, poderDeAtaque = 2}
+repeater = peaShooter {nombre = "Repeater", poderDeAtaque = 2*(poderDeAtaque peaShooter)} --con copia, si cambia el ataque del peashooter tambien el del repeater.
+sunFlower = Planta {nombre = "Sunflower" , puntosDeVida = 7, cantidadDeSoles =1, poderDeAtaque = 0}
+nut = Planta {nombre = "Nut" , puntosDeVida = 100, cantidadDeSoles =0, poderDeAtaque = 0}
 
-zombieBase = Zombie {nombreZombie = "Zombie", nivelDeMuerte = 6, articulos=0, poderDeMordida=1}
-ballonZombie = Zombie {nombreZombie = "Pepe colgado", nivelDeMuerte = 12, articulos=1, poderDeMordida=1}
-paperZombie = Zombie {nombreZombie = "Betl el chismoso", nivelDeMuerte = 16, articulos=1, poderDeMordida=2}
-gargantuar = Zombie {nombreZombie = "Gargantuar Hulk Smash Puni god", nivelDeMuerte = 30, articulos=2, poderDeMordida=30}
+zombieBase = Zombie {nombreZombie = "Zombie", nivelDeMuerte = calcularNivelDeMuerte zombieBase, articulos=[], poderDeMordida=1}
+balloonZombie = zombieBase {nombreZombie = "Pepe Colgado", nivelDeMuerte = calcularNivelDeMuerte balloonZombie, articulos = ["un globo"]}
+paperZombie = Zombie {nombreZombie = "Beto el chismoso", nivelDeMuerte = calcularNivelDeMuerte paperZombie, articulos = ["un diario"], poderDeMordida=2}
+gargantuar = Zombie {nombreZombie = "Gargantuar Hulk Smash Puny God", nivelDeMuerte = calcularNivelDeMuerte gargantuar, articulos = ["un poste de tendido de cableado","un zombie enano"], poderDeMordida=30}
+
+calcularNivelDeMuerte  = length . nombreZombie  
+cantidadDeArticulos = length . articulos
 
 --Punto 2
 especialidad :: Planta -> String
 esPeligroso :: Zombie -> Bool
 
 --Item a
-especialidad (Planta _ puntosDeVida generaSoles poderDeAtaque ) | (poderDeAtaque*2)>puntosDeVida = "Atacante" | generaSoles==1 = "Provedora" | otherwise = "Defensiva"
+especialidad (Planta _ puntosDeVida cantidadDeSoles poderDeAtaque ) 
+   | (poderDeAtaque*2)>puntosDeVida = "Atacante" 
+   | cantidadDeSoles==1 = "Provedora" 
+   | otherwise = "Defensiva"
 
 --Item b
-esPeligroso (Zombie _ nivelDeMuerte articulos _) = nivelDeMuerte > 10 || articulos > 1
+esPeligroso zombie = nivelDeMuerte zombie > 10 || cantidadDeArticulos zombie > 1
 
 --Punto 3
 linea1 = LineaDeDefensa { 
@@ -60,7 +66,7 @@ zombies = [zombieBase]
 }
 
 lineaA = LineaDeDefensa { 
-  plantas = [sunflower, peaShooter], 
+  plantas = [sunFlower, peaShooter], 
   zombies = repeat zombieBase
 }
 
@@ -83,7 +89,7 @@ agregarPlantaALista  [] planta = [planta]
 agregarPlantaALista (x:xs) planta = x : agregarPlantaALista xs planta
 
 agregarPlanta2 planta linea  = reverse $ planta : (reverse . plantas $ linea) --otra forma media rara de agregar al final
-agregarPlanta3 planta linea  = (plantas linea) ++ [planta]                    --deberíamos usar esta forma
+--agregarPlanta3 planta linea  = (plantas linea) ++ [planta]   --deberíamos usar esta forma --!!! ES LA MISMA QUE LA DE AGREGR ZOMBIE, TIENE QUE HABER DOS FORMAS DIFERENTES, NO HAY QUE REPETIR CODIGO 
 
 agregarZombieA zombie linea = (zombies linea) ++ [zombie]
 
@@ -113,10 +119,31 @@ esProvedora (x:xs) = (especialidad x == "Provedora") && esProvedora xs
 --ii. Al consultar si una línea con cantidad infinita de Peashooter necesita ser defendida, esta daría falso y no necesitaría recorrer toda la lista por concepto de evalación diferida.
 --    Pero si hablamos de una cantidad infinita de Sunflower, está recorrerá toda la lista sin dar respuesta porque se pide saber si todas las plantas son proveedores, y en este caso todas incluye a infinitos.
 --
---CORRECCION:
+-- !!!CORRECCION!!!-------------------:
 --i. Si se consulta con una linea de infinitos zombies el programa se colgara al no poder terminar de recorrer la lista en la funcion hayPeligro, ya que esta es recursiva y su salida solo se realiza con la lista vacia "[]". 
 --Hacer la prueba con la lineaA.
 --
 --ii. la respuesta esta bien, se puede agregar de ejemplo probar con la lineaB para los peashooter y con la lineaC para los Sunflower.
 
 --Punto 4
+
+lineaMixta linea = distintaEspecialidad (plantas linea)
+ 
+distintaEspecialidad [] = True
+distintaEspecialidad [x] = False
+distintaEspecialidad (x:y:ys) = (especialidad x) /= (especialidad y) && distintaEspecialidad ys
+
+--Punto 5
+--a.
+ataquePlantaA planta zombie = zombie {nombreZombie=quitarleLetrasAlNombre planta zombie ,nivelDeMuerte = length (quitarleLetrasAlNombre planta zombie)}  
+
+quitarleLetrasAlNombre planta zombie = drop (poderDeAtaque planta) (nombreZombie zombie)
+
+---funcion extra, incial del nombre de zombie, para usar en caso de prueba
+incialDelZombie zombie = head . nombreZombie $ zombie
+
+--b.
+ataqueZombieA zombie planta = planta {puntosDeVida = (puntosDeVida planta - poderDeMordida zombie) }
+
+
+
