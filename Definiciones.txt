@@ -11,6 +11,7 @@ Composicion: Forma de armar una funcion nueva que equivale a una secuencia de fu
 Recursividad: Es una funcion que se define en funcion de si misma. (las listas son recursivas)
 Pattern Matchin: Tener una definicion en partes y dependiendo de la forma que tiene los parametros podemos definir una funcion aplicable a la lista vacia en una definicion. depende de que parametro le estoy pasando. es un caso en el cual me restrinjo con algo.)
 Aplicacion Parcial: Pasarle a una funcion menos parametros para poder generar una nueva funcion. La sintaxis de HK nos permite pasar alguno de los parametros, y me queda una nueva funcion que recibe el que le falta a la nueva funcion.
+    Ej: siguiente = (1 + )
 Estructuras de datos: 
 Listas: Data - Record sintax: tuplas: Type: dar un nombre de datos y darle seria una estructura.
 Evaluacion diferida: solo se evalua si hace, falta. Esta escrita pero no forma parte de mi respuesta (no se evsalua). / Solo lo suficiente es lo que se evalua, si no se utiliza algo no se evalua directamente 

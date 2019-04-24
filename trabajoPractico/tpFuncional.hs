@@ -1,9 +1,9 @@
 --Punto 1
 data Planta = Planta {
-nombre::String,
-puntosDeVida :: Int,
-cantidadDeSoles :: Int,
-poderDeAtaque :: Int
+    nombre::String,
+    puntosDeVida :: Int,
+    generaSoles :: Int,
+    poderDeAtaque :: Int
 }deriving (Show)
 
 data Zombie = Zombie {
@@ -18,10 +18,10 @@ plantas ::[Planta],
 zombies :: [Zombie]
 } deriving (Show)
 
-peaShooter = Planta {nombre = "PeaShooter" , puntosDeVida = 5, cantidadDeSoles =0, poderDeAtaque = 2}
+peaShooter = Planta {nombre = "PeaShooter" , puntosDeVida = 5, generaSoles =0, poderDeAtaque = 2}
 repeater = peaShooter {nombre = "Repeater", poderDeAtaque = 2*(poderDeAtaque peaShooter)} --con copia, si cambia el ataque del peashooter tambien el del repeater.
-sunFlower = Planta {nombre = "Sunflower" , puntosDeVida = 7, cantidadDeSoles =1, poderDeAtaque = 0}
-nut = Planta {nombre = "Nut" , puntosDeVida = 100, cantidadDeSoles =0, poderDeAtaque = 0}
+sunFlower = Planta {nombre = "Sunflower" , puntosDeVida = 7, generaSoles =1, poderDeAtaque = 0}
+nut = Planta {nombre = "Nut" , puntosDeVida = 100, generaSoles =0, poderDeAtaque = 0}
 
 zombieBase = Zombie {nombreZombie = "Zombie", nivelDeMuerte = calcularNivelDeMuerte zombieBase, articulos=[], poderDeMordida=1}
 balloonZombie = zombieBase {nombreZombie = "Pepe Colgado", nivelDeMuerte = calcularNivelDeMuerte balloonZombie, articulos = ["un globo"]}
@@ -36,9 +36,9 @@ especialidad :: Planta -> String
 esPeligroso :: Zombie -> Bool
 
 --Item a
-especialidad (Planta _ puntosDeVida cantidadDeSoles poderDeAtaque ) 
+especialidad (Planta _ puntosDeVida generaSoles poderDeAtaque ) 
    | (poderDeAtaque*2)>puntosDeVida = "Atacante" 
-   | cantidadDeSoles==1 = "Provedora" 
+   | generaSoles==1 = "Provedora" 
    | otherwise = "Defensiva"
 
 --Item b

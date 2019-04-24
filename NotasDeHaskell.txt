@@ -13,14 +13,49 @@ a prelude y despues poner :load nombreDelArchivo. (opcion 2 ghci nombreDelArchiv
 
 Recordar que una vez hayan habido cambios hay que hacer el comando :r para actualizar en la consola despues de haberlo grabado.
 
+Referencias de lo que voy escribiendo:
+ /-\ Funciones o conocimiento nuevo 
+[] tipo de dato 
+
 Comandos del ghci:
 :r - Actualiza los cambios que hice en el archivo.
 :t - Muestra el tipo de todo lo que le ponga despues de un espacio. 
 
+Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hace falta afianzar nuevos temas)
+    
+    /length\ nos dice el largo de un string;
+    /head\ nos devuelve el primer caracter (la primer letra) de un string;
+    /++\ nos permite concatenar (unir) strings y es infija (como todos los chirimbolos que vimos).
+    /elem\ nos dice si una letra (o cualquier caracter) forma parte de una palabra. 
+    /rem\ devuelve el resto
 
-Referencias de lo que voy escribiendo:
- /-\ Funciones o conocimiento nuevo 
-[] tipo de dato 
+00 - Mumuki
+
+    01 - Valores Y Funciones
+
+        -- Ejercicio 14 --
+        
+        maximoEntreTres: toma tres mediciones y nos da la más alta;
+        minimoEntreTres: toma tres mediciones y nos da la mas baja;
+        dispersion: toma los tres mediciones y devuelve la diferencia entre la más alta y la más baja. Ejemplo: 
+        
+        --Ejercicio 15--
+        
+        diasParejos: son días parejos si la dispersión es chica (menos de 30 cm)
+        diasLocos: son días locos si la dispersión es grande (más de un metro)
+        diasNormales, son días normales si no son ni parejos ni locos. 
+
+        --Ejercicio 16--
+        
+        Definí la función pesoPino, recibe la altura de un pino en metros y devuelve su peso.
+        Definí la función esPesoUtil, recibe un peso en kg y responde si un pino de ese peso le sirve a la fábrica
+        Definí la función sirvePino, recibe la altura de un pino y responde si un pino de ese peso le sirve a la fábrica. 
+
+    02 - Tipos de datos
+        
+    Eq: las cosas que se pueden comparar por distinto e igual (/= y ==). Casi todo en Haskell es comparable, salvo las funciones. ¡doble == even rompe!
+    Ord las cosas que son comparables y además pueden ser ordenadas de menor a mayor, como los Int, Float, Char y String. Estos tipos pueden ser comparados mediante <, >, >=, etc.
+    Show: las cosas que se pueden convertir en un string y mostrar en una consola, mediante la función show 
 
 01 - Primera clase (Hacer una carpeta por clase)    
     
@@ -245,6 +280,18 @@ Referencias de lo que voy escribiendo:
             --18-- Multiples constructores
             Sexo tiene 2 constructores masculino y femenino ambos sin parametros
 
+(03) - Clase 3 Recursividad y evaluacion diferida
+    (01) - Apuntes de clase
+        Apuntes tomados en el mismo archivo
+
+    (02) - Modulo 4
+        Hacer todo lo que pueda sobre modulo 4
 
 
-!Prueba de git Bruno�
+(04) - Clase 4
+    (01) - Apuntes de clase 4.hs
+
+
+    (02) - Modulo 5
+
+
