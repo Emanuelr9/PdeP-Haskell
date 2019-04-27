@@ -1,0 +1,110 @@
+Punto 1 
+Consultar el poder de ataque de una Peashooter
+>poderDeAtaque peaShooter
+2
+
+Consultar el poder de ataque de un Repeater
+>poderDeAtaque repeater
+4
+
+Consultar la cantidad de soles que otorga un Sunflower
+>generaSoles sunFlower
+1
+
+Consultar cuantos soles de un Nut
+>generaSoles nut
+0
+
+Determinar cuantos articulos tienen un Ballon Zombie
+>length (articulos balloonZombie)
+1
+
+Consultar el poder de mordida de un Newspaper Zombie
+>poderMordida paperZombie
+2
+
+Determinar el nivel de muerte de un Gargantuar
+> nivelDeMuerte gargantuar
+30
+
+Punto 2
+Determinar la especialidad de un nut
+>especialidad nut
+"Defensiva"
+Determinar la especialidad de un Sunflower
+>especialidad sunFlower
+"Proveedora"
+Determinar la especialidad de un Repeater
+>especialidad repeater
+"Atacante"
+
+Saber si un  es peligroso
+>esPeligroso zombieBase
+False
+Saber si un  es peligroso
+>esPeligroso gargantuar
+True
+
+Punto 3
+
+Tras agregar una plata a línea 1, determinar la cantidad de plantas de la línea
+>length (agregarPlantaA sunFlower linea1)
+4
+Tras agregar un zombie a línea 2, determinar la cantidad de zombies de la línea
+>length (agregarZombieA zombieBase linea2)
+3
+
+Saber si la línea 1 está en peligro
+>estaEnPeligro linea1
+False
+Saber si la línea 3 está en peligro
+>estaEnPeligro linea3
+True
+Saber si la línea 1 necesita ser defendida
+>necesitaSerDefendida linea1
+True
+Saber si la línea 2 necesita ser defendida
+>necesitaSerDefendida linea2
+False
+
+Punto 4
+
+Saber si la línea 2 es mixta
+>lineaMixta linea2
+False
+Saber si la línea 3 es mixta
+>lineaMixta linea3
+True
+Saber si la línea 4 es mixta
+>lineaMixta linea4
+False
+
+Punto 5
+
+Luego de un ataque de un PeaShooter a un Gargantuar, saber el nivel de muerte de Gargantuar
+>nivelDeMuerte (ataquePlantaA peaShooter gargantuar)
+28
+
+Luego de un ataque de un SunFlower a un Newspaper Zombie, saber el nivel de muerte de Newspaper Zombie
+>nivelDeMuerte (ataquePlantaA sunFlower paperZombie)
+16
+
+Luego de dos ataques de un Repeater a un Zombie Base, saber el nivel de muerte del Zombie 
+>nivelDeMuerte (ataquePlantaA repeater (ataquePlantaA repeater zombieBase))
+0
+
+Luego del ataque de un Gargantuar a un Nut, saber la vida del Nut 
+>puntosDeVida (ataqueZombieA gargantuar nut)
+70
+
+Luego de un ataque de un Ballon Zombie a un SunFlower, saber el nivel de vida del SunFlower 
+>puntosDeVida (ataqueZombieA balloonZombie sunFlower)
+6
+
+Luego del ataque de un Newspaper Zombie a un Repeater, saber la especialidad del Repeater 
+>especialidad $ataqueZombieA paperZombie repeater
+"Atacante"
+
+Luego del ataque de un PeaShooter a un Zombie Base, saber la inicial del nombre del Zombie 
+>head $ nombreZombie (ataquePlantaA peaShooter zombieBase)
+'m'

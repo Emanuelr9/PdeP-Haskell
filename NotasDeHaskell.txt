@@ -290,6 +290,49 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
 
 (04) - Clase 4
     (01) - Apuntes de clase 4.hs
+    --1--
+    Problema de que viene un tipo que me debe 10kpesos y tengo data cliente...
+
+    --2--
+    armar un listado de deudores
+
+    --3--
+    Saber si es palindromo
+
+    --4--
+    Listado de clientes palindromos
+
+    --5--
+    Hacer un filtro cabeza cola que recibe cualquier lista de cualquier tipo de a siempre y cuando reciba cualquier tipo.
+
+    --6-- 
+
+    definimos la funcion de 5
+
+    --7--
+    Resolvemos 2 con lo que aprendimos de 6
+
+    --8--
+
+    Resolvemos 4 con filter
+
+    --9--
+    Dada una deuda de clietnes nos de la deuda de cada uno de los clientes
+
+    --10--
+    Deuda total 
+
+    --11--
+    Saber si todos tienen nombre palindromo
+    
+    --12--
+    definido el any
+
+--PARTE 2 DE LA CLASE
+
+Trabajo de Jurassic Park.
+
+
 
 
     (02) - Modulo 5
