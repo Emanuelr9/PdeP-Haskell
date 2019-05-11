@@ -28,6 +28,12 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
     /++\ nos permite concatenar (unir) strings y es infija (como todos los chirimbolos que vimos).
     /elem\ nos dice si una letra (o cualquier caracter) forma parte de una palabra. 
     /rem\ devuelve el resto
+    /any\
+    /all\
+    /map\
+    /and\
+    /or\
+    [1..] Lo que hace es generar una lista de valores desde el 1 hasta el infinito Ej: filter esPrimo [1..] esta funcion me busca todos los N primos desde 1 en adelante.
 
 00 - Mumuki
 
@@ -174,7 +180,7 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
 
 
 
-(02) Segunda clase
+02 - Segunda clase
 
     Primero voy a poner en 01 los apuntes y funciones que vayan a mostrar durante la clase.
 
@@ -285,11 +291,27 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
         Apuntes tomados en el mismo archivo
 
     (02) - Modulo 4
-        Hacer todo lo que pueda sobre modulo 4
+
+        --1--
+        Factorial de un numero con guardas
+
+        --2--
+        Factorial de un numero con pattern matching
+
+        --3--
+        Secuencia de Fibonacci
+
+        --4--
+        Saber si un numero es primo con guardas
+
+        --5--
+        Como funcionan las 3 funciones si las programara yo
+        Listas en forma recursiva / /sum\ como recursivo / /last\ como recursivo / /take:\ / /drop\
+
 
 
 (04) - Clase 4
-    (01) - Apuntes de clase 4.hs
+    (01.1) - Apuntes de clase 4.hs
     --1--
     Problema de que viene un tipo que me debe 10kpesos y tengo data cliente...
 
@@ -328,7 +350,7 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
     --12--
     definido el any
 
---PARTE 2 DE LA CLASE
+    (01.2)--PARTE 2 DE LA CLASE
 
 Trabajo de Jurassic Park.
 
@@ -336,5 +358,86 @@ Trabajo de Jurassic Park.
 
 
     (02) - Modulo 5
+    
+    --1--
+    Clientes que nos deben más de X
+
+    --2--
+    Clientes con nombre palíndromo
+
+    --3--
+    Clientes con alguna factura de X
+
+    --4--
+    Tipado de filter: No hace falta hacerlo en cada programa que haga porque ya viene por default en Haskell.
+
+    --5--
+    filter palindromo ["neuquen", "salta", "anana"] en el main
+
+    --6--
+    map transforma una lista en otra aplicando una funcion a todos sus elementos
+
+    --7--
+    Convertir cadena de caracteres a mayuscula
+
+    --8--
+    Sumar palabras dice la cantidad total de caracteres que tiene la combinacion de las palabras
+
+(05) - Clase 5
+
+    (01) - Apuntes de Clase
 
 
+    --1-- 
+    Teniendo una lista, puedo usar fold para poder tener asociatividad dependiendo de lo que necesite voy a asociad de derecha a izquierda.
+ ((1*2)*7)*5 = 1*(2*(7*5))
+
+  Tipado de foldl1 y foldr1 Fold tiene que tener aunque sea 1 elemendto
+
+    --2--
+    como seria la funcion sum y prod
+
+    --3--
+    foldl y foldr
+
+    --4--
+
+    --5--
+    Queremos definir foldr para listas infinitas va bien. evalua en cada caso la semilla con la otra
+
+    foldl se cuelga para listas infinitas, este lo que hace deja la evaluacon para el final guardando todos los casos a ser eveluados despues.
+
+    --6--
+    Parte 2 del ejercicio de Jurassic Park
+
+
+    --N--    Se agregan puntos al ejercicio dinosaurios de la clase pasada.
+
+
+    (02) - Modulo 5.2 
+
+    --1--
+
+    (06) - Clase 6
+        (01) - Apunte de Clase  
+            --1-- Claculo Lamda λ
+
+            IMPORTANTE PARA EL TP 1.12.00
+
+            --2--PARTE 2 currificacion permite poder darle valores a la tupla
+
+            (+) :: Int -> (Int -> Int)
+            \ x y -> x + y
+
+            \x -> \y -> x + y significa que no recibo dos cosas es que recibo una operacion que 
+
+            Cual el tipo de map con currificacion? 
+
+            map :: (a -> b) -> [a] -> [b]
+
+            y b :: (c->d)
+
+
+        (02) - Modulo 6
+            
+            --1--

@@ -1,5 +1,6 @@
 --1--
 {-
+{-
 data Cliente = Cliente {
     nombre :: String,
     deuda :: Float,
@@ -24,7 +25,7 @@ clientesQueDeben (cliente:clientes) monto
 palindromo palabra = palabra == reverse palabra -- hay que hacer el reverse de hace 2 clases.
 
 --4--
-{-
+
 clientesPalindromos [] = []
 clientesPalindromos (cliente:clientes)
     |(palindromo . nombre) = cliente : clientesPalindromos clientes
@@ -60,6 +61,7 @@ deudas clientes = map deuda clientes
 deudaTotal {-cliente-} = sum . deudas {-cliente-}
 -}
 --11--
+{-
 any :: (a -> Bool) -> [a] -> Bool
 any _ [] = Flase
 any F (x:xs) = F x || any F xs
@@ -128,3 +130,9 @@ alimentar dino = dino {peso = peso dino +50}
     todosConElPrimeroOAlgunoSegundo criterio1 criterio2 dinos = all criterio1 dinos || criterio2 dinos
     --c--
     transformadoCumple c t = filter c . map t
+    --d--
+    esOmnivoro = all (==True) . pam [esCarnivoro,esHerbivoro]
+    pam funciones valor = map ($valor) funciones ({-F$v = Fv-})
+    -}
+
+    
