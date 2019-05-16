@@ -95,8 +95,8 @@ envio2C = Envio{
 
 agregarImpuesto envio impuesto = aumentarPrecio envio (impuesto envio)
 
-iva envio = precio envio * 0.2
+iva envio = precio envio `div` 5
 
 impuestoExtranio envio
-    |odd precio envio = aumentarPrecio envio (envio*10/100)
-    |otherwise = envio
+    |odd (precio envio) = aumentarPrecio envio (precio envio * 2)
+    |otherwise = precio envio

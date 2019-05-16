@@ -1,6 +1,10 @@
+import Text.Show.Functions
+
 --1--
 
-hol = [1, 2, 3] --Solo para listas numericas.
+ho = [1, 2, 3] --Solo para listas numericas.
+
+hol = [1..10]
 
 --2--
 
@@ -11,7 +15,14 @@ hola2 = [8,7.. -2]
 
 --4-- La funcion head se aplica directamente en la consola
 
+{- >head [1,2,3]
+1
+
 --5-- La funciones se aplican directamente en la consola
+
+>tail [1,2,3]
+3
+-}
 
 --6--
 tupla = ("hola",150,True)
@@ -21,12 +32,20 @@ tupla2 = (hola,150,True)
 
 --7-- Las funciones se aplican directamente en la consola
 
+head (x:_) = x
+
 --8--
 soloSnd (_,n) = n
 soloTrd (_,_,n) = n
 
 --9--
 type Complejo = (Float,Float)
+
+--si no pongo el tipo de complejo 1 y 2 no me va a entrar en la funcion que ya declare que funciona con complejos
+complejo :: (Float,Float)
+complejo = (1,2)
+complejo2 :: (Float,Float)
+complejo2 = (4,-1)
 
 sumarComplejos :: Complejo -> Complejo -> Complejo
 sumarComplejos (real1,imaginario1) (real2, imaginario2) = (real1 + real2 , imaginario1 + imaginario2)
@@ -38,11 +57,13 @@ minPar (a,b) = min a b
 --11--
 data Persona = Persona String Int
 
---Persona "Santiago" 20 Asi se ingresa en la consola un valor del tipo data persona
+--(Persona "Santiago" 20) --Asi se ingresa en la consola un valor del tipo data persona
 
 --12--
 nombre (Persona n e) = n
+nombrePF (Persona n _) = n
 edad (Persona n e) = e
+edadPF (Persona _ e) = e
 
 --13-- Hacer :t en tupla y hacer :t en una Persona viendo que pasa si se completa o no todo
 
@@ -87,3 +108,68 @@ juancho = PersonaOk {
 --18--
 
 data Sexo = Femenino | Masculino
+
+--19--
+
+data Vehiculo = Propio Float | Contratado String Float
+
+type Flota = [Vehiculo]
+vehiculos :: Flota
+vehiculos = [Propio 9, Propio 15, Contratado "Remixes" 4, Propio 12]
+
+valorLitroNafta :: Float
+valorLitroNafta = 16.5
+
+costoPorKm :: Vehiculo -> Float
+costoPorKm (Propio consumo)     = valorLitroNafta * (consumo / 10)
+costoPorKm (Contratado _ costo) = costo
+
+--20--
+
+data Parcial = Parcial String Int deriving (Show)
+
+materia (mat, _) = mat
+cantidadPreguntas (_, cant) = cant
+
+
+data Alumno = Alumno {
+    ejNombre :: String,
+    ejFechaNacimiento :: (Int, Int, Int),
+    ejLegajo :: Int,
+    ejMateriasQueCursa :: [String],
+    criterioEstudio :: CriterioEstudio
+    } deriving (Show)
+    
+type CriterioEstudio = Parcial -> Bool
+
+estudioso :: CriterioEstudio
+estudioso _ = True
+
+hijoDelRigor :: Int -> CriterioEstudio
+hijoDelRigor n (Parcial _ preguntas) = preguntas > n
+
+cabulero :: CriterioEstudio
+cabulero (Parcial materia _) = (odd . length) materia 
+
+nico = Alumno {
+    ejFechaNacimiento = (10, 3, 1993),
+    ejNombre = "Nico",
+    ejMateriasQueCursa = ["sysop", "proyecto"],
+    criterioEstudio = estudioso,
+    ejLegajo = 124124
+}
+
+cambiarCriterioEstudio nuevoCriterio alumno = alumno { 
+criterioEstudio = nuevoCriterio 
+}
+
+--20.x
+-- Para que funcione hay que poner en la consola "cambiarCriterioEstudio (hijoDelRigor 5) nico"
+
+--20.X2--
+estudia :: Parcial -> Alumno -> Bool
+estudia parcial alumno = (criterioEstudio alumno) parcial
+parcialPDP = Parcial "PDP" 3
+
+--PAra evaluar poner en el main (estudia parcialPDP . cambiarCriterioEstudio (hijoDelRigor 5)) con cantidad de materias par
+

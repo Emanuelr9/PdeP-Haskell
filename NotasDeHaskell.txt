@@ -20,13 +20,28 @@ Referencias de lo que voy escribiendo:
 Comandos del ghci:
 :r - Actualiza los cambios que hice en el archivo.
 :t - Muestra el tipo de todo lo que le ponga despues de un espacio. 
+:e - Me abre el archivo como un txt para guardarlo
 
 Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hace falta afianzar nuevos temas)
+    
+    import Text.Show.Functions Tiene que estar para que mande el mensaje funcion cuando el resultado es una funcion
+
     
     /length\ nos dice el largo de un string;
     /head\ nos devuelve el primer caracter (la primer letra) de un string;
     /++\ nos permite concatenar (unir) strings y es infija (como todos los chirimbolos que vimos).
     /elem\ nos dice si una letra (o cualquier caracter) forma parte de una palabra. 
+    /mod\ Devuelve el resto de una division Modulo 2.11
+        --Sacadas del modulo 3--
+    /!!\ Devuelve el elemento que esta en la posicion buscada de una lista: !! buscado.
+    /drop\ descarta los primeros n elementos de una lista. drop 2 [1,2,3] => [3] 
+    /elem\ busca el elemento en una lista y devuelve booleano si esta en ella elem 1 [1,2,3] => true
+    /++\ concatena "String1" ++ "String2" = 'String1String2'
+    /concat\ Hace lo mismo que ++ concatena listas[[1,2,3],[4,5,6]]
+    /maximum\ me dice el valor mas grande de una lista maximum [1,5,2,3] => 5
+    /take\ toma los primeros valores de la lsta dada take 2 [1,2,3,4,5] => [1,2]
+    
+    /even\ modulo 2.5
     /rem\ devuelve el resto
     /any\
     /all\
@@ -59,13 +74,13 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
 
     02 - Tipos de datos
         
-    Eq: las cosas que se pueden comparar por distinto e igual (/= y ==). Casi todo en Haskell es comparable, salvo las funciones. ¡doble == even rompe!
-    Ord las cosas que son comparables y además pueden ser ordenadas de menor a mayor, como los Int, Float, Char y String. Estos tipos pueden ser comparados mediante <, >, >=, etc.
-    Show: las cosas que se pueden convertir en un string y mostrar en una consola, mediante la función show 
+        Eq: las cosas que se pueden comparar por distinto e igual (/= y ==). Casi todo en Haskell es comparable, salvo las funciones. ¡doble == even rompe!
+        Ord las cosas que son comparables y además pueden ser ordenadas de menor a mayor, como los Int, Float, Char y String. Estos tipos pueden ser comparados mediante <, >, >=, etc.
+        Show: las cosas que se pueden convertir en un string y mostrar en una consola, mediante la función show 
 
-01 - Primera clase (Hacer una carpeta por clase)    
+(01) - Clase 1 (Hacer una carpeta por clase)    
     
-    Ejemplo.hs y Modulo 1 (word modulo 1)
+    (01) - Ejemplo.hs y Modulo 1 (word modulo 1)
 
         (0) Trabajando con HK podemos ingresar cuentas asi nomas y apretar enter o usar las funciones que vienen por default.
             /-\Ej: 2+3 luego apretar enter
@@ -118,23 +133,25 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
 
             Consultar por que no funciona el max y por que si funciona el semaforo
 
-    02 - Modulo2
+
+    (02) - Modulo2
 
         --1--
         Esta es la funcion compuesta, esto significa que primero pasa por un doble y luego por el otro, por eso se genera el cuadruple al combinar uno con el otro
 
         --2-- 
-        Asi creamos esta funcion que suma 3 a lo que le estoy pasando
-
+        Asi creamos esta funcion que suma 2 a lo que le estoy pasando. Agrego nuevo la forma point free mediante Aplicacion Parcial
 
         --3--
-        En esta se puede ver como funciona la cuenta que hace en dobleMasDos lo que pasa es que primero se multiplica lo que le pasos
-        y despues toma lo que
-        Vemos como  funciona la precedencia. Primero se hace
+        En esta se puede ver como funciona la cuenta que hace en dobleMasDos lo que pasa es que primero 
+        se multiplica lo que le paso y despues toma lo que
+        Vemos como  funciona la precedencia. Primero se hace lo de la derecha y despues lo de la derecha.
         Tambien nos damos cuenta que podemos simplificar la x y los parentesis a esto se le llama notacion point free
+        Agregando point free le sacamos las funciones extras.
 
         --4--
-        Ordenamos las 2 funciones de forma inversa para demostrar la importancia de la precedencia en HK
+        Ordenamos las 2 funciones de forma inversa para demostrar la importancia de la precedencia en HK. si lo invertimos 
+        lo que pasa es que va a hacer primimero la suma y despues le agrega 2.
 
         --5--
         /even\ es una funcion que viene por default en HK y sirve para dar un booleano en caso que sea par o impar
@@ -145,8 +162,8 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
         Tuplas son combinaciones de datos para que puedan ser utilizados en conjunto (nombre,edad)
         /snd\ Es una funcion que dada una tupla devuelve el segundo valor de la misma (edad en este caso) 
         puedo usar esa funcion para que se aplique pero es mejor declarar otra variable. 
-        hacer snd (nombre, edad) = edad (nombre, edad) 
-        si vemos el tipo vemos como funciona jaja
+        hacer snd (nombre, edad) = edad (nombre, edad) si vemos el tipo vemos como funciona jaja
+        hasta ahora las tuplas pueden tener funciones o datos que siempre respetan la misma estructura.
 
         --7--
         Agregando una funcion que compare si una edad es mayor o menor que 18 y combinandola a la anterior 
@@ -155,6 +172,7 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
         --8-- Se ve mejor en el modulo 2 numero 9
         Puedo definir un tipo persona que tenga como parametros las variables como estan.
         luego darle valores como lo haria siempre. y hacer esMayorDeEdad laura y sale como resultado True
+        Ahora persona es un tipo de dato (como si fuera una estructura, y puedo usarlo dentro de funciones y demas)
 
         --9--
         No tengo limite para crear tipos, las tuplas pueden ser de mas de 2
@@ -162,7 +180,8 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
 
         --10--
         La funcion es menor edad primero calcula la edad de laura, despues se fija si es mayor de edad y si es mayor de edad la cambia, o biceversa.
-
+        (hace todo desde la derecha a la izquierda)
+      
         --11--
         /mod\: permite conocer el resto de la division de dos numeros.
         Se le tienen que pasar si o si 2 parametros.
@@ -170,7 +189,8 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
 
         --12--
         funciones++:
-        Podemos hacer funciones que le sumen un valor tipo c++
+        Podemos hacer funciones que le sumen un valor tipo c++ A esto se le llama aplicacion parcial
+
 
         --13--
         /head\: Esta funcion toma el primer elemento de una lista.
@@ -180,7 +200,7 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
 
 
 
-02 - Segunda clase
+(02) - Clase 2
 
     Primero voy a poner en 01 los apuntes y funciones que vayan a mostrar durante la clase.
 
@@ -203,7 +223,8 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
 
             --2--
             Se puede tambien definir con 2 puntos para que se autocomplete.
-            Pero solo lo pude hacer funcionar con 1 valor y oto que autocomplete con 3 se rompe
+            Pero solo lo pude hacer funcionar con 1 valor y oto que autocomplete con 3 se rompe. 
+            si pongo un valor y que el resto se autocomplete se hace la diferencia y se va sumando 
 
             --3--
             Puede cuando lo hago por cotas puede ser ascendente o descendente
@@ -259,6 +280,7 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
             --11-- Tipos propios (Data)
             Para los casos que queremos modelar diferentes tipos que son todos iguales.
             Este caso se lee como el tipo de dato Persona utiliza el constructor de nombre Persona (del lado derecho del =) que recibe un string y un int
+            Esta forma es impractica porque en la consola trngo que ingresar estos datos entre parentesis para que funcione.
 
             --12-- Pattern matching sobre Data
             Para hacer pattern matching sobre data hay que definir funciones similar a lo que haciamos con tuplas
@@ -286,6 +308,17 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
             --18-- Multiples constructores
             Sexo tiene 2 constructores masculino y femenino ambos sin parametros
 
+            --19-- Ejemplo de Remiseria con multiples contructores
+
+            Una flota es una lista de vehiculos
+
+            --20-- Ejercicio de modelar alumnos y parcial
+
+                --20.x -- Cambiar hijo del rigor a un alumno.
+                --20.X1 -- Saber si un alummn va a estudiar
+
+
+
 (03) - Clase 3 Recursividad y evaluacion diferida
     (01) - Apuntes de clase
         Apuntes tomados en el mismo archivo
@@ -305,121 +338,183 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
         Saber si un numero es primo con guardas
 
         --5--
-        Como funcionan las 3 funciones si las programara yo
+        Como funcionan las 3 funciones si las programara yo. Son ejemplos no funciones.
         Listas en forma recursiva / /sum\ como recursivo / /last\ como recursivo / /take:\ / /drop\
 
-
+        --6--
+        Aplicacion Parcial: significa que solo se aplica y evalua lo que necesita para funcionar
 
 (04) - Clase 4
-    (01.1) - Apuntes de clase 4.hs
-    --1--
-    Problema de que viene un tipo que me debe 10kpesos y tengo data cliente...
-
-    --2--
-    armar un listado de deudores
-
-    --3--
-    Saber si es palindromo
-
-    --4--
-    Listado de clientes palindromos
-
-    --5--
-    Hacer un filtro cabeza cola que recibe cualquier lista de cualquier tipo de a siempre y cuando reciba cualquier tipo.
-
-    --6-- 
-
-    definimos la funcion de 5
-
-    --7--
-    Resolvemos 2 con lo que aprendimos de 6
-
-    --8--
-
-    Resolvemos 4 con filter
-
-    --9--
-    Dada una deuda de clietnes nos de la deuda de cada uno de los clientes
-
-    --10--
-    Deuda total 
-
-    --11--
-    Saber si todos tienen nombre palindromo
     
-    --12--
-    definido el any
+    (01) - Apuntes de clase 4.hs
+        --1--
+        Problema de que viene un tipo que me debe 10kpesos y tengo data cliente...
 
-    (01.2)--PARTE 2 DE LA CLASE
+        --2--
+        armar un listado de deudores
 
-Trabajo de Jurassic Park.
+        --3--
+        Saber si es palindromo
 
+        --4--
+        Listado de clientes palindromos
 
+        --5--
+        Hacer un filtro cabeza cola que recibe cualquier lista de cualquier tipo de a siempre y cuando reciba cualquier tipo.
 
+        --6-- 
+
+        definimos la funcion de 5
+
+        --7--
+        Resolvemos 2 con lo que aprendimos de 6
+
+        --8--
+
+        Resolvemos 4 con filter
+
+        --9--
+        Dada una deuda de clietnes nos de la deuda de cada uno de los clientes
+
+        --10--
+        Deuda total 
+
+        --11--
+        Saber si todos tienen nombre palindromo
+        
+        --12--
+        definido el any
 
     (02) - Modulo 5
-    
-    --1--
-    Clientes que nos deben más de X
+        
+        --1--
+        Clientes que nos deben más de X
 
-    --2--
-    Clientes con nombre palíndromo
+        --2--
+        Clientes con nombre palíndromo
 
-    --3--
-    Clientes con alguna factura de X
+        --3--
+        Clientes con alguna factura de X
 
-    --4--
-    Tipado de filter: No hace falta hacerlo en cada programa que haga porque ya viene por default en Haskell.
+        --4--
+        Las 3 funciones de 1,2 y 3 en comun que son recursivas y reciben una funcion con una lista y devuelven un bool por cada elemento de la lista.
+        Es por eso que al ser una estructura que se repite puedo generar una funcion que haga eso
+        Tipado de filter: No hace falta hacerlo en cada programa que haga porque ya viene por default en Haskell.
+        Para ver que funciona poner : filter (elem 500000 . facturas) clientes en el main que filtra facturas
 
-    --5--
-    filter palindromo ["neuquen", "salta", "anana"] en el main
+        Con esta funcion podemos hacer las 3 funciones con una linea de codigo haciendo en el main:
+            1) >filter ((> plata) . deuda)  (siendo plata el monto a del listado)
+            2) >filter (palindromo . nombre) clientes
+            3) >filter (elem 500000 . facturas) clientes
 
-    --6--
-    map transforma una lista en otra aplicando una funcion a todos sus elementos
 
-    --7--
-    Convertir cadena de caracteres a mayuscula
+        --5--
+        Tambien lo podemos usar simplemente con una funcion y una lista que armemos nosotros.
+        filter palindromo ["neuquen", "salta", "anana"] en el main
 
-    --8--
-    Sumar palabras dice la cantidad total de caracteres que tiene la combinacion de las palabras
+        --6--
+        map transforma una lista en otra aplicando una funcion a todos sus elementos
+        Ej: >map (* 2) [1..5]  Multiplica por dos todos los valores y devuelve una lista de valores multiplicados
+
+        > map (+) [1..5]        Esto es importante porque es una lista de funciones.
+
+        --6.1-- Hacer la misma funcion pero sin map
+        hacer en main > (head . sumarDesde 3) 2 
+
+        
+
+        --7--
+        Convertir cadena de caracteres a mayuscula
+
+        --8--
+        Sumar palabras dice la cantidad total de caracteres que tiene la combinacion de las palabras
+
+        --9--
+
+        /any\ nos dice si todos los elementos de una lista cumplen determinada cosa que yo le mande 
+        
+        >all even [1..3]
+
+        >any (elem 3) [ [6..9], [2..4] ]
+
+        >and [True, True]
+
+        >or [True, False, False]
+Practico clase: Trabajo de Jurassic Park.
+
+
 
 (05) - Clase 5
 
     (01) - Apuntes de Clase
 
 
-    --1-- 
-    Teniendo una lista, puedo usar fold para poder tener asociatividad dependiendo de lo que necesite voy a asociad de derecha a izquierda.
- ((1*2)*7)*5 = 1*(2*(7*5))
+        --1-- 
+        Teniendo una lista, puedo usar fold para poder tener asociatividad dependiendo de lo que necesite voy a asociad de derecha a izquierda.
+     ((1*2)*7)*5 = 1*(2*(7*5))
 
-  Tipado de foldl1 y foldr1 Fold tiene que tener aunque sea 1 elemendto
+        Tipado de foldl1 y foldr1 Fold tiene que tener aunque sea 1 elemendto
 
-    --2--
-    como seria la funcion sum y prod
+        --2--
+        como seria la funcion sum y prod
 
-    --3--
-    foldl y foldr
+        --3--
+        foldl y foldr
 
-    --4--
+        --4--
 
-    --5--
-    Queremos definir foldr para listas infinitas va bien. evalua en cada caso la semilla con la otra
+        --5--
+        Queremos definir foldr para listas infinitas va bien. evalua en cada caso la semilla con la otra
 
-    foldl se cuelga para listas infinitas, este lo que hace deja la evaluacon para el final guardando todos los casos a ser eveluados despues.
+        foldl se cuelga para listas infinitas, este lo que hace deja la evaluacon para el final guardando todos los casos a ser eveluados despues.
 
-    --6--
-    Parte 2 del ejercicio de Jurassic Park
+        --6--
+        Parte 2 del ejercicio de Jurassic Park
 
 
-    --N--    Se agregan puntos al ejercicio dinosaurios de la clase pasada.
+        --N--    Se agregan puntos al ejercicio dinosaurios de la clase pasada.
 
 
     (02) - Modulo 5.2 
 
-    --1--
+        --1--
+        fold intercala funciones con un listado "cambiando" tecnicamente la , por la funcion que le estoy mandando
 
-    (06) - Clase 6
-        (01) - Apunte de Clase  
+        > foldl1 (+) lista
+        > foldr1 (+) lista
+        En este caso particular da lo mismo porque la suma es conmutativa. sino
+        Varias funciones usan un fold adentro. Ej: sum, product, concat, 
+
+        - en el caso de que no sean conmutativas no da lo mismo si aplicamos uno u el otro
+        > foldl1 (/) [1,2,3,4,5]
+        > foldr1 (/) [1,2,3,4,5]
+
+        --2-- Revisar otra vez por que pasa esto de la semilla
+        La semilla hace que funcione mejor el fold ya que le agrega un valor inicial a la operacion que le estoy mandando.
+        
+        >funcion lista.
+
+        --3-- Funcion guerrero (Escuchar audio)
+
+        --4--
+        también podemos componer una lista de funciones con el operador (.). En ese caso, fold termina devolviendo una función que puede aplicarse contra un valor:
+
+            > foldr (.) (1 +) [(^ 2), (4 *)]
+            <function>
+
+            > (foldr (.) (1 +) [(^ 2), (4 *)]) 0
+            16
+        
+        --5--
+        Definicion del flip
+        flip f y x = f x y
+
+
+        
+
+
+(06) - Clase 6
+    (01) - Apunte de Clase  
             --1-- Claculo Lamda λ
 
             IMPORTANTE PARA EL TP 1.12.00
@@ -438,6 +533,6 @@ Trabajo de Jurassic Park.
             y b :: (c->d)
 
 
-        (02) - Modulo 6
+    (02) - Modulo 6
             
             --1--

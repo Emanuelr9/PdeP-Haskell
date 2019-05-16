@@ -1,3 +1,5 @@
+import Text.Show.Functions
+
 data Cliente = Cliente {
     nombre :: String, 
     deuda :: Float,
@@ -6,13 +8,13 @@ data Cliente = Cliente {
 
 clientes = [ 
     Cliente "Biasutto" 6000 [4000, 5000],
-    Cliente "Colombatti" 15000 [30000],
+    Cliente "Colombatti" 15000 [500,30000],
     Cliente "Marabotto" 200 [500000, 140000],
     Cliente "AnA" 200 [500,150]
  ]
 
 
---11--
+--1--
 clientesQueDeben plata [] = []
 clientesQueDeben plata (cliente:clientes) 
    | ((> plata) . deuda) cliente 
@@ -44,6 +46,9 @@ filter f (x:xs) | f x       = x : filter f xs
                 | otherwise = filter f xs
 -}
 
+--filter (elem 500000 . facturas) clientes
+
+
 --5--
 -- >filter palindromo ["neuquen", "salta", "anana"]
 
@@ -54,10 +59,14 @@ map f [] = []
 map f (x:xs) = f x : map f xs
 -}
 
+--6.1--
+sumarDesde n = (n +):sumarDesde (n + 1) -- Ojo que asi solo revienta haskell hacer >(head . sumarDesde 3) 2 
+
+
 --7--
 --upperCase palabra = map toUpper palabra
 
 --8--
 
 sumarPalabras palabras = (sum . map length) palabras
---sumarPalabras = (sum . map length)
+--sumarPalabrasPF = (sum . map length)
