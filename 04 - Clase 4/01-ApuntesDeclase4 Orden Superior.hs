@@ -61,10 +61,10 @@ deudas clientes = map deuda clientes
 deudaTotal {-cliente-} = sum . deudas {-cliente-}
 -}
 --11--
-{-
-any :: (a -> Bool) -> [a] -> Bool
-any _ [] = Flase
-any F (x:xs) = F x || any F xs
+
+--any :: (a -> Bool) -> [a] -> Bool
+--any _ [] = Flase
+--any F (x:xs) = F x || any F xs
 
 --12--
 
@@ -75,7 +75,9 @@ nombre :: String,
 altura :: Float,
 peso :: Float,
 dieta :: [String]
-}
+} deriving (Show, Eq)
+
+d1 = Dinosaurio "Fede" 4 3 ["carne"]
 
 ds = [Dinosaurio "T-Rex" 7 400 ["Animales"]]
 
@@ -87,19 +89,19 @@ herbivoros dinos = filter esHerbivoro dinos
 
 --2--
 
-pesoTotal = Sum. pesos
+--pesoTotal = Sum. pesos
 pesos = map peso
 
 --3--
 
 --esBajo dino = (<4) . altura dino
 esBajo = (<4) . altura
-sonTodosBajos = all esBajo
+--sonTodosBajos = all esBajo
 
 --4--
 esCarnivoro = elem "animales" . dieta
-esOmivoro dino = esHerbivoro dino && esCarnivoro
-hayOmnivoro = any esOmnivoro
+--esOmivoro dino = esHerbivoro dino && esCarnivoro
+--hayOmnivoro = any esOmnivoro
 
 --5--
 esPesado = (>200) . peso
@@ -107,12 +109,12 @@ esPesado = (>200) . peso
 nombresPesados = map nombre . filter esPesado
 
 --6--
-alturaPar = even . altura
-todos = all alturaPar
+--alturaPar = even . altura
+--todos = all alturaPar
 
 --7--
-algunAlto = any (not . esBajo) --forma 1 pero no cumple la segunda parte
-algunAltoCarnivoro = any (not . esBajo) . filter esCarnivoro --forma 1 final
+--algunAlto = any (not . esBajo) --forma 1 pero no cumple la segunda parte
+--algunAltoCarnivoro = any (not . esBajo) . filter esCarnivoro --forma 1 final
 --algunAltoCarnivoro = any altoCarnivoro --forma 2 final
 --altoCarnivoro d = not . esBajo $d && esCarnivoro d --altenativas o es una que funciona y otra que no
 altoCarnivoro d = (not . esBajo) d && esCarnivoro d --altenativas o es una que funciona y otra que no
@@ -123,16 +125,16 @@ alimentar dino = dino {peso = peso dino +50}
 
 --9--
     --a--
-    transformarHerbivoros f = map f . filter esHervivoro
-    transformarHerbivoros :: (dino -> a) -> [dino] -> [a] -- tiene que ser tipo dino porque estpoy usando dieta entocnes tiene que ser si o si dino -> a
+ --   transformarHerbivoros f = map f . filter esHervivoro
+  --  transformarHerbivoros :: (dino -> a) -> [dino] -> [a] -- tiene que ser tipo dino porque estpoy usando dieta entocnes tiene que ser si o si dino -> a
     --b--
   --  todosConElPrimeroOAlgunoSegundo :: ([a] -> a) -> -> ->
-    todosConElPrimeroOAlgunoSegundo criterio1 criterio2 dinos = all criterio1 dinos || criterio2 dinos
+  --  todosConElPrimeroOAlgunoSegundo criterio1 criterio2 dinos = all criterio1 dinos || criterio2 dinos
     --c--
-    transformadoCumple c t = filter c . map t
+ --   transformadoCumple c t = filter c . map t
     --d--
-    esOmnivoro = all (==True) . pam [esCarnivoro,esHerbivoro]
-    pam funciones valor = map ($valor) funciones ({-F$v = Fv-})
-    -}
+  --  esOmnivoro = all (==True) . pam [esCarnivoro,esHerbivoro]
+--    pam funciones valor = map ($valor) funciones ({-F$v = Fv-})
+    
 
     

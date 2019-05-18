@@ -441,7 +441,9 @@ Funciones de Haskell sacadas de mumuki/clase: (hacer un archivo de mumuki si hac
 
         >or [True, False, False]
 Practico clase: Trabajo de Jurassic Park.
-
+18-5-19: 43:00 resolucion de esOmivoro ESTUDIARLA BIEN
+esOmnivoro = (not . null . filter esHerbivoro . filter esCarnivoro . flip (:)) []
+esOmnivoro = flip all [esHerbivoro,esCarnivoro] .flip ($) como funciona 55:00
 
 
 (05) - Clase 5
@@ -536,3 +538,148 @@ Practico clase: Trabajo de Jurassic Park.
     (02) - Modulo 6
             
             --1--
+
+(07) - Clase 7
+    (01) - Apunte de Clase
+
+
+    (02) - Modulo 7
+
+        --1--
+        InterseccionFiltra los elementos de una lista.
+
+        --2-- Funcion $ de como funciona.
+
+        --3-- recorrido de herraminetas que estuvimos usando 1:00:00
+        Que tipos conocemos?  
+
+        Int, Char, Bool, Float
+
+        String, Lista, Tupla, Data
+
+        Funciones.
+
+        type Nombre = String
+        
+        type Entrenador = Soldado -> Soldado
+
+        Tipos genericos que aplican a cosas genericas: Head, last tail (reciben listas de elementos pero sin restricciones) sin mencionar tipos de datos manipulados.
+        head :: [a] -> a            id :: a -> a (este funciona para todo)
+        last :: [a] -> a
+        tail :: [a] -> [a]
+
+        Nunca interactura con el elemento en si, no sabe lo que es. Puede ser agnostico
+
+        $ tambien es un polimorfismo.
+
+        Orden superior tambien son polmorfismos, reciben algo que no importa y devuelven algo, lo vemos en el map con bool, 
+        Me da igual el tipo de parametro que recibo, yo doy un tipo de resultado.
+
+        --4--
+
+        La suma recibe dos enteros o Float
+        4+5 Int -> Int -> Int
+        4.1+5 Float -> Int -> Float
+        4.1+5.2 Float -> Float -> Float
+
+        No puedo pensar en polimorfismo cuando tengo restricciones pero podemos agrupar las restricciones, son todos numeros.
+        Para que esto pase se necesita el concepto de Type clases.
+        Actua como obligaor de tipos para que funcionen con las mismas propiedades. y pueden tener una misma forma. Tengo algo que si quiero que sea num tengo que definir propiedades.
+        Existe un conjunto de operaciones que se pueden implementar.
+
+        --5-- 1:20:00
+
+        comparaciones entre elementos cuando son distintos tipos
+        4>3 (si un numero es mayor que el otro)
+        "Mati" < "Leo" (si la M es mayor que la L) entocnes es falso
+        True > False (La verdad le gana a la mentira)
+
+        Tipo Ord son ordenables porque son cosas que se pueden ordenar: 
+
+        Puedo preguntar si 2 elementos son iguales o distintos:
+
+        (==):: Eq a => a-> a-> Bool
+        (/=):: a-> a-> Bool
+
+        elem :: Eq a => a -> [a] -> Bool
+
+        cuando veo foldable t tengo que pensarlo como una lista de 
+        
+        --4-- Tipado de maximoSegun
+        La y es la unica que necesita restriccion por eso es Ord, como todo lo demas no importa lo que sea lo puedo dejar asin identificar.
+        maximoSegun :: Ord => (x->y) -> x -> x -> x
+
+        --5-- 
+        4.1+5
+        4+"q"
+        
+        Puedo tener numeros, decimales o tner mezcla, en el caso de ser tipado fuerte no se pueden mezclar tipos no compatibles, HK tiene un tipado fuerte por lo cual no puedo hacer esa comparacion.
+        Esto es lo que hace a Haskell como tipado fuerte.
+
+        chequeo de tpos: estatico y dinamico: segun en que momento se fija de que tipo son los argumentos y si son validdos.  Dinamico antes de evaluar pasa por todas las definiciones para ver si hay errores de tipos tan pronto como esta disponible (estatico) 
+
+        --6-- Lenguajes funcionales 1:55: volver a escuchar poruqe se acabo la carga.
+
+        tal comolas funciones aplican sobre varios tipos puede que entre en polimorfismo Ad-Hoc, no funciona para todo sino para un conjuto de datos.
+        id sirve para cualquier a, los a ordenables, los a
+
+        --7-- Ejemplo de dinosaurios en Ejemplo de jurasi Park 2:00:00
+
+        parte uno por que no esta el show en el problema de deriving show
+        Si agrego show te digo que la estructura que le agrego es del tipo show.
+        si le agrego eq lo que hace es decir que es del tipo eq hace que se cuente para hacer el cambio.
+        instance eq Dino, hay algo que es instance de eq que es dino. no quiero que compare todo, quiero yo poder definirlo por afuera
+        
+        --PRACTICA DE INFERENCIA DE TIPOS--
+
+        --a--
+
+        watever a b c = c a . filter ((a==) . b )
+
+        primer parametro de filtes siempre es h -> bool
+
+        3 parametros 3 flechas? -> -> -> El total es una coposicion por lo cual serian 4 flechas (la composicion recibe una funcion)  -> -> -> ( -> ) y por currificacion  -> -> -> ->
+        ->(b es una fucnion de un solo parametro) -> (esto es lo que seria c a) -> ( el resultado )
+
+            x -> ( y -> x ) -> ( x -> [y] -> z) -> ([y] ->   z  )
+            x -> ( y -> x ) -> ( x -> [y] -> z) -> [y] ->   z   Puedo sacar los parentesis para que este currificada.
+
+        --b--
+
+        funcionLoca a f m b =  (m <) . head . map (uncurry b) $ zip a f el signo $ hace que toda la composicion se aplique al resultado de zip. (zip arma una lsta de tuplas.)
+                                                                [(y,z)]
+
+        4 parametros 4 flechas: -> -> -> -> 
+        a y f tendrian que ser listas [] -> [] -> -> ->
+        Tiene que ser ordenable ORD x [] -> [] -> x -> ->
+        B tiene que ser una funcion (4 parametro) de 2 parametros: [] -> [] -> -> ( -> -> ) ->
+       24:00
+        map va a devolver una cabeza de : [y] -> [z] -> -> (y (viene del zip) -> z -> x ) -> Bool (el resultado es el resultado de la comparacion)
+        
+        --c--
+        
+        saraza x y w z = z w . maximoSegun z y $x
+
+        maximoSegun f x y 
+            |f x y < f y x = x
+            |otherwise = y
+
+        maximoSegun :: Ord b => (a -> a -> b) -> a -> a -> a
+
+        son 4 parametros porque la conmposicion esta aplicada a x :  -> -> ->  ->
+        z es una funcion que recibe 3 parametros:  -> -> -> ( -> -> -> ) ->
+        tanto y como x necesitan parametros del mismo tipo:  a -> a -> -> ( a -> a -> ) ->
+        la funcion z deberia devolver un odenable, porque la funcion maximo segun tiene que ser ordenable: ord b =>  a -> a -> -> ( a -> a -> b) ->
+        w tiene que ser a porque es parametro de z: ord b =>  a -> a -> a -> ( a -> a -> b) ->
+        Todo devuelve lo que devuelve z por ser el parametro de una ultima fucnion: ord b =>  a -> a -> a -> ( a -> a -> b) -> b
+
+        --d--
+
+        h x y z q
+            |any x z = y > (head . filter x) z
+            | otherwise = q
+
+        h:: -> -> -> ->
+        h:: -> -> -> ->
+        x devuelve un booleano que recibe alfo del mismo tipo de la lista        h:: (a  -> Bool) -> -> [a] -> Bool -> Bool
+        40:00        h:: Ord a (a  -> Bool) -> a -> [a] -> Bool -> Bool

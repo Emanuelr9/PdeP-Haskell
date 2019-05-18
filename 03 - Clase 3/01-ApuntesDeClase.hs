@@ -90,7 +90,7 @@ quitar extraAquitar (Personalizada(extra:extras))
 --10--
 
 precioAPagar []=0
-precioAPagar (precioAPagar : listaHamburs)=percioUnitario hambur + precioAPagar listaHamburs
+--precioAPagar (precioAPagar : listaHamburs)=percioUnitario hambur + precioAPagar listaHamburs
 percioUnitario Basica = 100
 percioUnitario (Personalizada extras) = percioUnitario Basica + 50 * (length extras) 
 

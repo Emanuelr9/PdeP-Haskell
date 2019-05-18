@@ -1,24 +1,24 @@
 Guardas: Permiten dar distintas definiciones de una funcion bajo distintas condiciones. (asociado a uncion x ramas) es lo mismo que una funcion por partes.
-Transparencia referencial: Si tengo f de un valor siempre esta asociado al mismo valor siempre se mantiene el valor resultante. Si yo ejetuto algo me da siempre lo mismo (consecuencia porque no tengo efecto colateral)
-Recursividad: Es una funcion que se define en funcion de si misma. (las listas son recursivas, es una funcion definida en si misma) pero que tiene un caso base
-Evaluacion diferida: solo se evalua si hace, falta. Esta escrita pero no forma parte de mi respuesta (no se evsalua). / Solo lo suficiente es lo que se evalua, si no se utiliza algo no se evalua directamente. Puedo dividir por 0 si no se evalua. / Esto pasa porque tengo transparencia referencial, si postergo la evaluacion y no tengo transp referencial.
+Transparencia referencial: PUEDO CAMBIAR UNA EXPRESION O FUNCION POR UN VALOR QUE GENERA SIN AFECTAR EL PROGRAMA EN GENERAL: Si tengo f de un valor siempre esta asociado al mismo valor siempre se mantiene el valor resultante. Si yo ejetuto algo me da siempre lo mismo (consecuencia porque no tengo efecto colateral). 
+Recursividad: Es una funcion que se define en funcion de si misma. (las listas son recursivas, es una funcion definida en si misma) pero que tiene un caso base. Puede o no tener un caso base para ser recursivo. Relacionado con las listas porque las listas son del mismo elemento y pueden ser definidas.
+Evaluacion diferida: solo se evalua si hace, falta. Esta escrita pero no forma parte de mi respuesta (no se evsalua). / Solo lo suficiente es lo que se evalua, si no se utiliza algo no se evalua directamente. Puedo dividir por 0 si no se evalua. / Esto pasa porque tengo transparencia referencial, si postergo la evaluacion y no tengo transp referencial. Tiene mucho que ver con el EFECTO COLATERA. SI NO HAY TRANSPARENCIA REFERENCIAL TENDRIA QUE EVALUARLOS SIEMPRE.
 Aplicacion Parcial: Pasarle a una funcion menos parametros para poder generar una nueva funcion que espera todo lo que lo que le falta. La sintaxis de HK nos permite pasar alguno de los parametros, y me queda una nueva funcion que recibe el que le falta a la nueva funcion. Es similar a la composicion. El (objetivo) es crear una nueva funcion.
 Composicion: Forma de armar una funcion nueva que equivale a una secuencia de funciones. Crear una nueva funcion a partir de crear nuevas funciones. El dominio de la segunda es parte de la imagen de la primera, formando nuevas funciones.
 Pattern Matchin: Tener una definicion en partes y dependiendo de la forma que tiene los parametros podemos definir una funcion aplicable a la lista vacia en una definicion. depende de que parametro le estoy pasando. es un caso en el cual me restrinjo con algo.) Genero un patron y lo matchea con otro. Al evaluar cierto parametro en mi definicion puedo hacer que coincida con unsa osla definicio, si tiene sentido elvalor que le paso con el otro valor. Defino funciones en las cuales como parametros parto de la forma que tiene el argumento (17min 11-5-19). El argumneto es el valor 
-Orden superior: Son funciones que trabajan confunciones, se aplica mas para los que reciben que para que las envian. Funciones que funcionan con un valor son las que trabajan con valores. El punto es una fucion de orden superior. Es lo mas importante para la cohesion.
-Listas: Siempre del mismo tipo de dato, no sepueden tener cosas distintas.
+Orden superior: Son funciones que trabajan confunciones (parametros de otra funcion), se aplica mas para los que reciben que para que las envian. Funciones que funcionan con un valor son las que trabajan con valores. El punto es una fucion de orden superior. Es lo mas importante para la cohesion. Pueden der funciones que pueden devolver una funcion. Ej all any, $, map
 Tuplas: numero finito de dato sque pueden terner distinto tipo. 
 Expresividad: El codigo se puede leer y entender lo que se esta haciendo. (no hace falta comentarios si el codigo se lee en si). Es subjetivo, que sea entendible.
 Declaratividad: Se delega lo que quiero con como quiero. Se separa la parte algoritmica con lo que. Se delego la lagoritmica al motor.
 Acoplamiento: 2 componentes de mi programa pueden depender en mayor o menor medida uno del otro, cuanto conoce un elementod el otro para ser usado, me importa el tipo de cosas que recibe, pero no importa como lo hace (>acomplamiento significa: < acomplamiento significa: )Queremso minimizar el grado de las cosas que dependen de otras. Preferimos que haya la mayor catidad de pedazos delegando las partes de la funcion, si se hacen modificaciones se maximiza la cantidad de "nosevaenterar el resto de codigo"  Queremos tener bajo acoplamiento: LAs funciones se relacionan entre si pero no dependen unas de otras.
-Efecto colateral: Cambio que hago dentrod e una funcion y luego se ve reflejado luego que la funcion termina. el cambio sobrevive a la evaluacion del codigo. Puedo afectar el contexto donde estan ocurriendo las cosas. (implica) Permite reemplazar la funcion con el resultado
+Efecto colateral: Cambio que hago dentrod e una funcion y luego se ve reflejado luego que la funcion termina. el cambio sobrevive a la evaluacion del codigo. Puedo afectar el contexto donde estan ocurriendo las cosas. (implica) Permite reemplazar la funcion con el resultado (TRANSPARENCIA REFERENCIAL).  Efecto colatteral significa que genero uno nuevo cada vez que hago.
 Imperatividad: lo contrario a lo declarativo.
 Reduccion: la funcion es cada vez mas basica, mas chica etc.
 bajo para que se mantengan los componentes de forma independiente.
     Ej: siguiente = (1 + )
 Estructuras de datos: 
+Listas: Siempre del mismo tipo de dato, no sepueden tener cosas distintas. Puede tener na cantidad de elementos infinita.
 Type: dar un nombre de datos para que sea de un mismo tipo y que sea mas expresivo y darle seria una estructura.
-Data: Definir una estructura de un tipo de dato con el nombre que nosotros quetremos con datos internos
+Data: Definir una estructura de un tipo de dato con el nombre que nosotros quetremos con datos internos. Define un nuevo tipo de dato. 
 Multiples constructores: 
 Record sintax: Mas expresividad y 1) funciones que me permiten acceder a estructura y acceder directamente 2) Permite c"cambiar" de forma virtual creando un nuevo data con la misma informacion excepto el cambio hecho.
 /Una unica vez es lo que se evalua, se relaciona con transparencia referencial. Se evalua auna sola vez y siempre se que tengo el mismo resultado.
@@ -26,4 +26,10 @@ Parametro (valor de la definicion de la funcon) vs argumento (es el valor que le
 Parametro formal, es el que pongo en una funcion: esta recibe un valor en eun momento pero no lo conozco. entocne slas definicion tiene un PF. Cuando yo la evaluo le paso un argunmento, le paso un valoerr que es el que toma un 
 Parametro real: es el valor que le estoy mandando, entonces el pattern matching revisa esa coincidencia para que funcionen las cosas.
 cohesion: funcion que hace muchas cosas en la misma, sabe la condicion que tiene que aplicar y la aplica a todo lo demas. (queremos tener mayor cohesion) ORDEN SUPERIOR Y COMPOSICION SON LA CLAVE DE UNA MAYOR COHESION. CADA UNA DE LAS FUNCIONES HACE UNA SOLA COSA, BAJA COHESION ES VALIDA ES UNA FUNCION, AUMENTA ES OTRA FUNCION, NO UNA FUNCION QUE VALIDAyAUEMNTA. Filter por ejemplo relega si una funcion se ejecuta o no. por eso tiene mayor cohesion.
-Notacion Pont free:
+Notacion Ponit free:
+Currificacion: Sintaxis que permite interpretar funciones de n parametros en una de uno sola, eso permite usar aplicacion parcial. curry / uncurry  
+Expresiones Lambda: Cuando uso composicion el parametro tiene que llegar con casos en que se usa una sola vez se puede usar una lambda. 18-5-19 29:00 con lamba pierdo expresividad (tengo q leer completa para ver qua hace.)
+Definicion local: Funcion que defino en contexto de dafinicion. no la puedo utilizar fuera del lugar donde la defini. No es visible dentro de todo el programa sino solamente en donde lo defino.
+Polimorfismo parametrico: el tipo del parametro puede ser cualquiera sin importar lo que venga puedo trabajar igual. Es agnostico, por eso pueden hacer que las cosas nos den igual.
+Type clases: Significa  agrupar los tipos de datos que queremos manejar. Agrupamiento, obligaciones y comportamiento comun (que se muetre de la misma manera o forma para los casos que tenga sentido)
+Tipados fuertes y debiles: tipados debiles: primero va a tratar de hacer una conversion si los datos son de distintos tipos antes de tirar error. Tipado fuerte, da error, no me deja  y me obliga a cambiar la expresion para que sea valido.
