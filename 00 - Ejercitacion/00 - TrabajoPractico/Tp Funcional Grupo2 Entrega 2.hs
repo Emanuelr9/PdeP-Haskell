@@ -84,34 +84,46 @@ agregarPlantaA :: Planta -> LineaDeDefensa -> [Planta]
 agregarZombieA :: Zombie -> LineaDeDefensa -> [Zombie]
 
 --Item a
-agregarPlantaA planta linea = agregarPlantaALista (plantas linea) planta
-agregarPlantaALista  [] planta = [planta]
-agregarPlantaALista (x:xs) planta = x : agregarPlantaALista xs planta
+--Recursividad comentada
+--agregarPlantaA planta linea = agregarPlantaALista (plantas linea) planta
+--agregarPlantaALista  [] planta = [planta]
+--agregarPlantaALista (x:xs) planta = x : agregarPlantaALista xs planta
 
-agregarPlanta2 planta linea  = reverse $ planta : (reverse . plantas $ linea) --otra forma media rara de agregar al final
---agregarPlanta3 planta linea  = (plantas linea) ++ [planta]   --deberíamos usar esta forma --!!! ES LA MISMA QUE LA DE AGREGR ZOMBIE, TIENE QUE HABER DOS FORMAS DIFERENTES, NO HAY QUE REPETIR CODIGO 
-
+--agregarPlanta2 planta linea  = reverse $ planta : (reverse . plantas $ linea) --otra forma media rara de agregar al final
+agregarPlantaA planta linea  = (plantas linea) ++ [planta]
 agregarZombieA zombie linea = (zombies linea) ++ [zombie]
 
 --Item b
 ataqueDePlantasEsMenor linea = (totalDeAtaque . plantas $ linea) < (totalDeMordiscos . zombies $ linea)
-totalDeMordiscos [] = 0
-totalDeMordiscos (x:xs) =  poderDeMordida x + totalDeMordiscos xs
-totalDeAtaque [] = 0
-totalDeAtaque (x:xs) = poderDeAtaque x + totalDeAtaque xs
+
+--Recursividad comentada
+--totalDeMordiscos [] = 0
+--totalDeMordiscos (x:xs) =  poderDeMordida x + totalDeMordiscos xs
+--totalDeAtaque [] = 0
+--totalDeAtaque (x:xs) = poderDeAtaque x + totalDeAtaque xs
+
+totalDeMordiscos = foldl sumarMordidas 0
+                  where sumarMordidas acumulador = (acumulador + ).poderDeMordida
+totalDeAtaque = foldl sumarAtaques 0
+                  where sumarAtaques acumulador = (acumulador + ).poderDeAtaque
 
 todosLosZombiesSonPeligrosos linea = hayPeligro . zombies $ linea
-hayPeligro [] = True
-hayPeligro (x:xs) = esPeligroso x && hayPeligro xs
+--Recursividad comentada
+--hayPeligro [] = True
+--hayPeligro (x:xs) = esPeligroso x && hayPeligro xs
+
+hayPeligro zombies = foldl (&&) True (map esPeligroso zombies)
 
 hayZombies linea = (length . zombies $ linea) > 0
-
 estaEnPeligro linea = ataqueDePlantasEsMenor linea  || (todosLosZombiesSonPeligrosos linea && hayZombies linea)
 
 --Item c
 necesitaSerDefendida linea = esProvedora . plantas $ linea
-esProvedora [] = True
-esProvedora (x:xs) = (especialidad x == "Provedora") && esProvedora xs
+--Recursividad comentada
+--esProvedora [] = True
+--esProvedora (x:xs) = (especialidad x == "Provedora") && esProvedora xs
+esProvedora plantas = foldl (&&) True (map obtenerEspecialidad plantas) 
+                      where obtenerEspecialidad = ("Provedora" ==).especialidad
 
 --Item d
 {--i. Si se consulta con una linea de infinitos zombies el programa se colgara al no poder terminar de recorrer la lista en la funcion hayPeligro, ya que esta es recursiva y su salida solo se realiza con la lista vacia "[]". 
