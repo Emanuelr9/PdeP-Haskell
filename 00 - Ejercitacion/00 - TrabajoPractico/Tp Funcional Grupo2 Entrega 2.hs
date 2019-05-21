@@ -1,3 +1,4 @@
+--TP1
 --Punto 1
 data Planta = Planta {
     nombre::String,
@@ -22,11 +23,12 @@ peaShooter = Planta {nombre = "PeaShooter" , puntosDeVida = 5, generaSoles =0, p
 repeater = peaShooter {nombre = "Repeater", poderDeAtaque = 2*(poderDeAtaque peaShooter)} --con copia, si cambia el ataque del peashooter tambien el del repeater.
 sunFlower = Planta {nombre = "Sunflower" , puntosDeVida = 7, generaSoles =1, poderDeAtaque = 0}
 nut = Planta {nombre = "Nut" , puntosDeVida = 100, generaSoles =0, poderDeAtaque = 0}
+cactus = Planta {nombre = "Cactus" , puntosDeVida = 9, generaSoles =0, poderDeAtaque = 0}
 
 zombieBase = Zombie {nombreZombie = "Zombie", nivelDeMuerte = calcularNivelDeMuerte zombieBase, articulos=[], poderDeMordida=1}
-balloonZombie = zombieBase {nombreZombie = "Pepe Colgado", nivelDeMuerte = calcularNivelDeMuerte balloonZombie, articulos = ["un globo"]}
-paperZombie = Zombie {nombreZombie = "Beto el chismoso", nivelDeMuerte = calcularNivelDeMuerte paperZombie, articulos = ["un diario"], poderDeMordida=2}
-gargantuar = Zombie {nombreZombie = "Gargantuar Hulk Smash Puny God", nivelDeMuerte = calcularNivelDeMuerte gargantuar, articulos = ["un poste de tendido de cableado","un zombie enano"], poderDeMordida=30}
+balloonZombie = zombieBase {nombreZombie = "Pepe Colgado", nivelDeMuerte = calcularNivelDeMuerte balloonZombie, articulos = ["globo"], poderDeMordida= calcularDañoBalloonZombie balloonZombie}
+paperZombie = Zombie {nombreZombie = "Beto el chismoso", nivelDeMuerte = calcularNivelDeMuerte paperZombie, articulos = ["diario"], poderDeMordida= calcularDañoPaperZombie paperZombie}
+gargantuar = Zombie {nombreZombie = "Gargantuar Hulk Smash Puny God", nivelDeMuerte = calcularNivelDeMuerte gargantuar, articulos = ["un poste de tendido de cableado","un zombie enano"], poderDeMordida=calcularDañoGargantuar gargantuar}
 
 calcularNivelDeMuerte  = length . nombreZombie  
 cantidadDeArticulos = length . articulos
@@ -112,7 +114,7 @@ todosLosZombiesSonPeligrosos linea = hayPeligro . zombies $ linea
 --hayPeligro [] = True
 --hayPeligro (x:xs) = esPeligroso x && hayPeligro xs
 
-hayPeligro zombies = foldl (&&) True (map esPeligroso zombies)
+hayPeligro zombies = foldl (&&) True (map esPeligroso zombies) 
 
 hayZombies linea = (length . zombies $ linea) > 0
 estaEnPeligro linea = ataqueDePlantasEsMenor linea  || (todosLosZombiesSonPeligrosos linea && hayZombies linea)
@@ -140,7 +142,10 @@ distintaEspecialidad (x:y:ys) = (especialidad x) /= (especialidad y) && distinta
 
 --Punto 5
 --a.
-ataquePlantaA planta zombie = zombie {nombreZombie=quitarleLetrasAlNombre planta zombie ,nivelDeMuerte = length (quitarleLetrasAlNombre planta zombie)}  
+ataquePlantaA planta zombie 
+  | (nombre planta == "Nut") = ataqueNutA zombie
+  | (nombre planta == "Cactus") = ataqueCactusA zombie
+  | otherwise = ataqueComunPlantaA planta zombie  
 
 quitarleLetrasAlNombre planta zombie = drop (poderDeAtaque planta) (nombreZombie zombie)
 
@@ -149,3 +154,31 @@ incialDelZombie zombie = head . nombreZombie $ zombie
 
 --b.
 ataqueZombieA zombie planta = planta {puntosDeVida = (puntosDeVida planta - poderDeMordida zombie) }
+
+
+--TP2
+
+--Punto 1 
+--Se realiza modificación en el punto 5 en el ataque de plantas y zombies, y se agregan métodos
+ataqueNutA zombie = zombie {poderDeMordida=disminuirMordida (poderDeMordida zombie)}
+disminuirMordida poderDeMordida  
+  | poderDeMordida > 1 = poderDeMordida - 1
+  | otherwise = poderDeMordida
+
+ataqueCactusA zombie = zombie {articulos= quitarArticulo (articulos zombie)}
+quitarArticulo = filter (/= "globo") 
+
+ataqueComunPlantaA planta zombie = zombie {nombreZombie=quitarleLetrasAlNombre planta zombie ,nivelDeMuerte = length (quitarleLetrasAlNombre planta zombie)}
+
+--Se diseñan las funciones para determinar su daño a partir de su mordida
+calcularDañoBalloonZombie zombie 
+  | length ( filter (== "globo") (articulos zombie)) >= 1 = 5
+  | otherwise = 2
+
+calcularDañoPaperZombie zombie = length (concatenarAccesorios (articulos zombie)) 
+concatenarAccesorios = foldl (++) ""  
+
+calcularDañoGargantuar zombie = 30 + length (articulos zombie)
+
+--Punto 2
+--Las correspondientes modificaciones se encuentran en el archivo
