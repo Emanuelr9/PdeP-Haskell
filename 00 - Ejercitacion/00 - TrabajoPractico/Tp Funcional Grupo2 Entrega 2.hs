@@ -1,3 +1,5 @@
+import Text.Show.Functions
+
 --TP1
 --Punto 1
 data Planta = Planta {
@@ -182,3 +184,29 @@ calcularDañoGargantuar zombie = 30 + length (articulos zombie)
 
 --Punto 2
 --Las correspondientes modificaciones se encuentran en el archivo
+
+--Punto 3
+
+--Punto 4
+data Jardin = Jardin { 
+  lineas :: [LineaDeDefensa] 
+}deriving Show
+
+miJardin = Jardin {
+  lineas = [linea1, linea2, linea3, linea4]
+}
+
+--Funciones con potenciadores
+aplicarPotenciador jardin [] = jardin
+aplicarPotenciador jardin (funcion:xs) = aplicarPotenciador (funcion jardin) xs
+
+--Funciones para realizar el riego
+aplicarRiego jardin = jardin{ lineas = map aplicarLineaRiego (lineas jardin)}
+aplicarLineaRiego linea = linea { plantas= map aumentarVidaPlanta (plantas linea)}
+
+aumentarVidaPlanta planta 
+  | head (nombre planta) == 'P' = aumentarVida planta 10
+  | especialidad planta == "Defensiva" = aumentarVida planta 5
+  | otherwise = aumentarVida planta 0
+
+aumentarVida planta cantidad = planta{puntosDeVida = (puntosDeVida planta + cantidad) }
