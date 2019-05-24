@@ -186,6 +186,17 @@ calcularDañoGargantuar zombie = 30 + length (articulos zombie)
 --Las correspondientes modificaciones se encuentran en el archivo
 
 --Punto 3
+filtrarPlantas plantas [] = plantas
+filtrarPlantas plantas  (condicion:condiciones) = filtrarPlantas (condicion plantas) condiciones
+
+--Consulta 1
+consulta1 = length (filtrarPlantas (plantas linea1) [filter (("Provedora"==).especialidad)])
+
+--Consulta 2
+consulta2 = filtrarPlantas (plantas linea2) [filter ((>4).puntosDeVida),  filter (('P' ==).head.nombre)]
+
+--Consulta3
+consulta3 = filtrarPlantas (plantas linea2) [filter ((nombre (head (plantas linea2))==).nombre),  filter (("Provedora"==).especialidad)] 
 
 --Punto 4
 data Jardin = Jardin { 
@@ -198,7 +209,7 @@ miJardin = Jardin {
 
 --Funciones con potenciadores
 aplicarPotenciador jardin [] = jardin
-aplicarPotenciador jardin (funcion:xs) = aplicarPotenciador (funcion jardin) xs
+aplicarPotenciador jardin (funcion:funciones) = aplicarPotenciador (funcion jardin) funciones
 
 --Funciones para realizar el riego
 aplicarRiego jardin = jardin{ lineas = map aplicarLineaRiego (lineas jardin)}
