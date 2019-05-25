@@ -21,7 +21,7 @@ plantas ::[Planta],
 zombies :: [Zombie]
 } deriving (Show)
 
-peaShooter = Planta {nombre = "PeaShooter" , puntosDeVida = 5, generaSoles =0, poderDeAtaque = 20}
+peaShooter = Planta {nombre = "PeaShooter" , puntosDeVida = 5, generaSoles =0, poderDeAtaque = 2}
 repeater = peaShooter {nombre = "Repeater", poderDeAtaque = 2*(poderDeAtaque peaShooter)} --con copia, si cambia el ataque del peashooter tambien el del repeater.
 sunFlower = Planta {nombre = "Sunflower" , puntosDeVida = 7, generaSoles =1, poderDeAtaque = 0}
 nut = Planta {nombre = "Nut" , puntosDeVida = 100, generaSoles =0, poderDeAtaque = 0}
@@ -247,10 +247,9 @@ ataqueLinea linea = ataqueZombieAPlanta (ataquePlantasAZombie linea)
 
 ataqueZombieAPlanta linea 
   | (length (zombies linea) > 0 && nivelDeMuerte (head (zombies linea)) <= 0) = linea {zombies = tail (zombies linea)}
-  | length (zombies linea) > 0 = destruirPlanta (ataquePosteriorZombieAPlanta linea)
-  | otherwise = linea
+  | otherwise = destruirPlanta (ataquePosteriorZombieAPlanta linea)
 
-ataquePosteriorZombieAPlanta linea = linea {plantas = (reverse (tail (plantas linea))) ++ [ataqueZombieA (head (zombies linea)) (last (plantas linea))]}
+ataquePosteriorZombieAPlanta linea = linea {plantas = (reverse (tail (reverse(plantas linea)))) ++ [ataqueZombieA (head (zombies linea)) (last (plantas linea))]}
 
 destruirPlanta linea 
   | puntosDeVida (last (plantas linea)) < 0 = linea {plantas = reverse (tail (reverse (plantas linea)))} 
@@ -267,3 +266,7 @@ ataqueGrupalAZombie ataquePlantas zombie = zombie {nivelDeMuerte = (nivelDeMuert
 ataqueMasivo linea
   | length (plantas linea) == 0  || length (zombies linea) == 0 = linea
   | otherwise = ataqueMasivo (ataqueLinea linea)
+
+--c
+theZombiesAteYourBrains jardin = any (True ==) (map tienePlantas (map ataqueMasivo (lineas jardin)))
+tienePlantas linea = length(plantas linea) <= 0
