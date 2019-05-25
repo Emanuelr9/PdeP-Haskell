@@ -232,3 +232,26 @@ aumentarVidaPlanta planta
 
 aumentarVida planta cantidad = planta{puntosDeVida = (puntosDeVida planta + cantidad) }
 
+--Punto 6
+-- ataqueLinea linea = linea {plantas = (plantas linea), zombies = (zombies linea)}
+ataqueLinea linea = linea {plantas = ataqueZombieAPlanta (ataquePlantasAZombie linea) , zombies = (zombies linea)}
+
+ataqueZombieAPlanta :: Planta a => LineaDeDefensa -> [a]
+
+ataqueZombieAPlanta linea 
+  | nivelDeMuerte (head (zombies linea2)) < 0 = tail (zombies linea)
+  | otherwise = destruirPlanta (ataquePosteriorZombieAPlanta linea)
+
+ataquePosteriorZombieAPlanta linea = linea {plantas = (reverse (tail (plantas linea))) ++ [ataqueZombieA (head (zombies linea)) (last (plantas linea))]}
+
+destruirPlanta linea 
+  | puntosDeVida (last (plantas linea)) < 0 = reverse (tail (reverse (plantas linea))) 
+  | otherwise = plantas linea
+
+ataquePlantasAZombie linea = linea {zombies =  existeZombie linea}
+existeZombie linea 
+  | length (zombies linea) == 0 = zombies linea
+  | otherwise = [ataqueGrupalAZombie (totalDeAtaque (plantas linea)) (head (zombies linea)) ] ++ tail (zombies linea) 
+
+ataqueGrupalAZombie ataquePlantas zombie = zombie {nivelDeMuerte = (nivelDeMuerte zombie) - ataquePlantas}
+
