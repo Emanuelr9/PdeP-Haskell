@@ -232,6 +232,15 @@ aumentarVidaPlanta planta
 
 aumentarVida planta cantidad = planta{puntosDeVida = (puntosDeVida planta + cantidad) }
 
+--Punto 5
+--Item a. 
+plantaMejorValorada valorar planta1 planta2 
+ |valorar planta1 > valorar planta2 = planta1
+ |otherwise = planta2 
+--Item b.
+mvp valorar = foldl1 (plantaMejorValorada valorar)
+--Item c: mvp puntosDeVida $ concat.map plantas.lineas $ miJardin
+
 --Punto 6
 -- ataqueLinea linea = linea {plantas = (plantas linea), zombies = (zombies linea)}
 ataqueLinea linea = ataqueZombieAPlanta (ataquePlantasAZombie linea)
