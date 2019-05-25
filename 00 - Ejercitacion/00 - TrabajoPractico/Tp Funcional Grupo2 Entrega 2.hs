@@ -21,7 +21,7 @@ plantas ::[Planta],
 zombies :: [Zombie]
 } deriving (Show)
 
-peaShooter = Planta {nombre = "PeaShooter" , puntosDeVida = 5, generaSoles =0, poderDeAtaque = 2}
+peaShooter = Planta {nombre = "PeaShooter" , puntosDeVida = 5, generaSoles =0, poderDeAtaque = 20}
 repeater = peaShooter {nombre = "Repeater", poderDeAtaque = 2*(poderDeAtaque peaShooter)} --con copia, si cambia el ataque del peashooter tambien el del repeater.
 sunFlower = Planta {nombre = "Sunflower" , puntosDeVida = 7, generaSoles =1, poderDeAtaque = 0}
 nut = Planta {nombre = "Nut" , puntosDeVida = 100, generaSoles =0, poderDeAtaque = 0}
@@ -242,11 +242,11 @@ mvp valorar = foldl1 (plantaMejorValorada valorar)
 --Item c: mvp puntosDeVida $ concat.map plantas.lineas $ miJardin
 
 --Punto 6
---a
+-- ataqueLinea linea = linea {plantas = (plantas linea), zombies = (zombies linea)}
 ataqueLinea linea = ataqueZombieAPlanta (ataquePlantasAZombie linea)
 
 ataqueZombieAPlanta linea 
-  | (length (zombies linea) > 0 && nivelDeMuerte (head (zombies linea)) <= 0) = linea {zombies = tail (zombies linea)}
+  | (length (zombies linea) > 0 && nivelDeMuerte (head (zombies linea2)) < 0) = linea {zombies = tail (zombies linea)}
   | length (zombies linea) > 0 = destruirPlanta (ataquePosteriorZombieAPlanta linea)
   | otherwise = linea
 
@@ -263,7 +263,3 @@ existeZombie linea
 
 ataqueGrupalAZombie ataquePlantas zombie = zombie {nivelDeMuerte = (nivelDeMuerte zombie) - ataquePlantas}
 
---b
-ataqueMasivo linea
-  | length (plantas linea) == 0  || length (zombies linea) == 0 = linea
-  | otherwise = ataqueMasivo (ataqueLinea linea)
