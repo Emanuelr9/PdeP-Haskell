@@ -98,36 +98,31 @@ agregarPlantaA planta linea  = (plantas linea) ++ [planta]
 agregarZombieA zombie linea = (zombies linea) ++ [zombie]
 
 --Item b
-ataqueDePlantasEsMenor linea = (totalDeAtaque . plantas $ linea) < (totalDeMordiscos . zombies $ linea)
-
 --Recursividad comentada
 --totalDeMordiscos [] = 0
 --totalDeMordiscos (x:xs) =  poderDeMordida x + totalDeMordiscos xs
 --totalDeAtaque [] = 0
 --totalDeAtaque (x:xs) = poderDeAtaque x + totalDeAtaque xs
 
-totalDeMordiscos = foldl sumarMordidas 0
-                  where sumarMordidas acumulador = (acumulador + ).poderDeMordida
-totalDeAtaque = foldl sumarAtaques 0
-                  where sumarAtaques acumulador = (acumulador + ).poderDeAtaque
+ataqueDePlantasEsMenor linea = (totalDeAtaque linea) < (totalDeMordiscos linea)
+totalDeAtaque = sum.map poderDeAtaque.plantas
+totalDeMordiscos = sum.map poderDeMordida.zombies
 
-todosLosZombiesSonPeligrosos linea = hayPeligro . zombies $ linea
 --Recursividad comentada
 --hayPeligro [] = True
 --hayPeligro (x:xs) = esPeligroso x && hayPeligro xs
 
-hayPeligro zombies = foldl (&&) True (map esPeligroso zombies) 
+todosLosZombiesSonPeligrosos = all esPeligroso.zombies
 
 hayZombies linea = (length . zombies $ linea) > 0
 estaEnPeligro linea = ataqueDePlantasEsMenor linea  || (todosLosZombiesSonPeligrosos linea && hayZombies linea)
 
 --Item c
-necesitaSerDefendida linea = esProvedora . plantas $ linea
+necesitaSerDefendida = all ((==) "Provedora" ).map especialidad.plantas
+
 --Recursividad comentada
 --esProvedora [] = True
 --esProvedora (x:xs) = (especialidad x == "Provedora") && esProvedora xs
-esProvedora plantas = foldl (&&) True (map obtenerEspecialidad plantas) 
-                      where obtenerEspecialidad = ("Provedora" ==).especialidad
 
 --Item d
 {--i. Si se consulta con una linea de infinitos zombies el programa se colgara al no poder terminar de recorrer la lista en la funcion hayPeligro, ya que esta es recursiva y su salida solo se realiza con la lista vacia "[]". 
@@ -246,7 +241,7 @@ mvp valorar = foldl1 (plantaMejorValorada valorar)
 ataqueLinea linea = ataqueZombieAPlanta (ataquePlantasAZombie linea)
 
 ataqueZombieAPlanta linea 
-  | (length (zombies linea) > 0 && nivelDeMuerte (head (zombies linea2)) < 0) = linea {zombies = tail (zombies linea)}
+  | (length (zombies linea) > 0 && nivelDeMuerte (head (zombies linea)) < 0) = linea {zombies = tail (zombies linea)}
   | length (zombies linea) > 0 = destruirPlanta (ataquePosteriorZombieAPlanta linea)
   | otherwise = linea
 
@@ -259,7 +254,7 @@ destruirPlanta linea
 ataquePlantasAZombie linea = linea {zombies =  existeZombie linea}
 existeZombie linea 
   | length (zombies linea) == 0 = zombies linea
-  | otherwise = [ataqueGrupalAZombie (totalDeAtaque (plantas linea)) (head (zombies linea)) ] ++ tail (zombies linea) 
+  | otherwise = [ataqueGrupalAZombie (totalDeAtaque linea) (head (zombies linea)) ] ++ tail (zombies linea) 
 
 ataqueGrupalAZombie ataquePlantas zombie = zombie {nivelDeMuerte = (nivelDeMuerte zombie) - ataquePlantas}
 
