@@ -211,6 +211,16 @@ miJardin = Jardin {
 aplicarPotenciador jardin [] = jardin
 aplicarPotenciador jardin (funcion:funciones) = aplicarPotenciador (funcion jardin) funciones
 
+--Funcion para agregar el artfacto
+navidadZombie jardin = jardin {lineas = map aplicarNavidadZombie (lineas jardin)}
+aplicarNavidadZombie linea  = linea {zombies = map agregarArtefacto (zombies linea)}
+
+agregarArtefacto zombie = zombie {articulos = (articulos zombie) ++ ["barba"]}
+
+catenaccio jardin = jardin {lineas = map aplicarCatenaccio (lineas jardin)}
+aplicarCatenaccio linea = linea {plantas =  agregarPlantaA nut linea }
+
+
 --Funciones para realizar el riego
 aplicarRiego jardin = jardin{ lineas = map aplicarLineaRiego (lineas jardin)}
 aplicarLineaRiego linea = linea { plantas= map aumentarVidaPlanta (plantas linea)}
@@ -221,3 +231,4 @@ aumentarVidaPlanta planta
   | otherwise = aumentarVida planta 0
 
 aumentarVida planta cantidad = planta{puntosDeVida = (puntosDeVida planta + cantidad) }
+
