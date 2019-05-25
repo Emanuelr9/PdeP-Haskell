@@ -242,11 +242,11 @@ mvp valorar = foldl1 (plantaMejorValorada valorar)
 --Item c: mvp puntosDeVida $ concat.map plantas.lineas $ miJardin
 
 --Punto 6
--- ataqueLinea linea = linea {plantas = (plantas linea), zombies = (zombies linea)}
+--a
 ataqueLinea linea = ataqueZombieAPlanta (ataquePlantasAZombie linea)
 
 ataqueZombieAPlanta linea 
-  | (length (zombies linea) > 0 && nivelDeMuerte (head (zombies linea2)) < 0) = linea {zombies = tail (zombies linea)}
+  | (length (zombies linea) > 0 && nivelDeMuerte (head (zombies linea)) <= 0) = linea {zombies = tail (zombies linea)}
   | length (zombies linea) > 0 = destruirPlanta (ataquePosteriorZombieAPlanta linea)
   | otherwise = linea
 
@@ -263,3 +263,7 @@ existeZombie linea
 
 ataqueGrupalAZombie ataquePlantas zombie = zombie {nivelDeMuerte = (nivelDeMuerte zombie) - ataquePlantas}
 
+--b
+ataqueMasivo linea
+  | length (plantas linea) == 0  || length (zombies linea) == 0 = linea
+  | otherwise = ataqueMasivo (ataqueLinea linea)
