@@ -147,7 +147,7 @@ ataquePlantaA planta zombie
 quitarleLetrasAlNombre planta zombie = drop (poderDeAtaque planta) (nombreZombie zombie)
 
 ---funcion extra, incial del nombre de zombie, para usar en caso de prueba
-incialDelZombie zombie = head . nombreZombie $ zombie
+inicialDelZombie zombie = head . nombreZombie $ zombie
 
 --b.
 ataqueZombieA zombie planta = planta {puntosDeVida = (puntosDeVida planta - poderDeMordida zombie) }
