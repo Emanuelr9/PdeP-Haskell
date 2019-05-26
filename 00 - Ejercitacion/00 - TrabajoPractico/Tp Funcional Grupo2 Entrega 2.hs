@@ -162,18 +162,20 @@ disminuirMordida poderDeMordida
   | poderDeMordida > 1 = poderDeMordida - 1
   | otherwise = poderDeMordida
 
-ataqueCactusA zombie = zombie {articulos= quitarArticulo (articulos zombie)}
-quitarArticulo = filter (/= "globo") 
+ataqueCactusA zombie 
+ |elem "globo" (articulos zombie) = sacarGlobo zombie {poderDeMordida = calcularDañoBalloonZombie (sacarGlobo zombie)}
+ |otherwise = zombie  
+ where sacarGlobo zombie =  zombie {articulos=  filter (/= "globo") (articulos zombie)}
+  
 
 ataqueComunPlantaA planta zombie = zombie {nombreZombie=quitarleLetrasAlNombre planta zombie ,nivelDeMuerte = length (quitarleLetrasAlNombre planta zombie)}
 
 --Se diseñan las funciones para determinar su daño a partir de su mordida
 calcularDañoBalloonZombie zombie 
-  | length ( filter (== "globo") (articulos zombie)) >= 1 = 5
+  | elem "globo" (articulos zombie) = 5
   | otherwise = 2
 
-calcularDañoPaperZombie zombie = length (concatenarAccesorios (articulos zombie)) 
-concatenarAccesorios = foldl (++) ""  
+calcularDañoPaperZombie  =  length.concat.articulos 
 
 calcularDañoGargantuar zombie = 30 + length (articulos zombie)
 
@@ -207,10 +209,10 @@ aplicarPotenciador jardin [] = jardin
 aplicarPotenciador jardin (funcion:funciones) = aplicarPotenciador (funcion jardin) funciones
 
 --Funcion para agregar el artfacto
-navidadZombie jardin = jardin {lineas = map aplicarNavidadZombie (lineas jardin)}
-aplicarNavidadZombie linea  = linea {zombies = map agregarArtefacto (zombies linea)}
+navidadZombie jardin artefacto = jardin {lineas = map (aplicarNavidadZombie artefacto) (lineas jardin)}
+aplicarNavidadZombie artefacto linea = linea {zombies = map (agregarArtefacto artefacto) (zombies linea)}
 
-agregarArtefacto zombie = zombie {articulos = (articulos zombie) ++ ["barba"]}
+agregarArtefacto artefacto zombie= zombie {articulos = (articulos zombie) ++ [artefacto]}
 
 catenaccio jardin = jardin {lineas = map aplicarCatenaccio (lineas jardin)}
 aplicarCatenaccio linea = linea {plantas =  agregarPlantaA nut linea }
@@ -234,7 +236,8 @@ plantaMejorValorada valorar planta1 planta2
  |otherwise = planta2 
 --Item b.
 mvp valorar = foldl1 (plantaMejorValorada valorar)
---Item c: mvp puntosDeVida $ concat.map plantas.lineas $ miJardin
+--Item c:
+consultaP5 = mvp puntosDeVida $ concat.map plantas.lineas $ miJardin
 
 --Punto 6
 --a
@@ -253,7 +256,7 @@ destruirPlanta linea
 
 ataquePlantasAZombie linea = linea {zombies =  existeZombie linea}
 existeZombie linea 
-  | length (zombies linea) == 0 = zombies linea
+  | length (zombies linea) == 0 = []
   | otherwise = [ataqueGrupalAZombie (totalDeAtaque linea) (head (zombies linea)) ] ++ tail (zombies linea) 
 
 ataqueGrupalAZombie ataquePlantas zombie = zombie {nivelDeMuerte = (nivelDeMuerte zombie) - ataquePlantas}
