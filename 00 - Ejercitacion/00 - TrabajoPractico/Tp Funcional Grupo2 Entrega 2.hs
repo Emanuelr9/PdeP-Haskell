@@ -209,22 +209,29 @@ aplicarPotenciador jardin [] = jardin
 aplicarPotenciador jardin (funcion:funciones) = aplicarPotenciador (funcion jardin) funciones
 
 --Funcion para agregar el artfacto
-navidadZombie jardin artefacto = jardin {lineas = map (aplicarNavidadZombie artefacto) (lineas jardin)}
+navidadZombie artefacto jardin = jardin {lineas = map (aplicarNavidadZombie artefacto) (lineas jardin)}
 aplicarNavidadZombie artefacto linea = linea {zombies = map (agregarArtefacto artefacto) (zombies linea)}
 
-agregarArtefacto artefacto zombie= zombie {articulos = (articulos zombie) ++ [artefacto]}
+agregarArtefacto artefacto zombie= actualizarMordida (zombie {articulos = (articulos zombie) ++ [artefacto]})
+actualizarMordida zombie = zombie {poderDeMordida = calcularDañoPaperZombie zombie}
 
 catenaccio jardin = jardin {lineas = map aplicarCatenaccio (lineas jardin)}
 aplicarCatenaccio linea = linea {plantas =  agregarPlantaA nut linea }
 
+data Criterio = Criterio{
+  potencia ::  Int,
+  condicion :: Condicion
+}deriving Show
+
+type Condicion = Planta -> Bool
+aplicarRiego:: Criterio -> Jardin -> Jardin
 
 --Funciones para realizar el riego
-aplicarRiego jardin = jardin{ lineas = map aplicarLineaRiego (lineas jardin)}
-aplicarLineaRiego linea = linea { plantas= map aumentarVidaPlanta (plantas linea)}
+aplicarRiego criterio jardin = jardin{ lineas = map (aplicarLineaRiego criterio) (lineas jardin)}
+aplicarLineaRiego criterio linea = linea { plantas= map (aumentarVidaPlanta criterio) (plantas linea)}
 
-aumentarVidaPlanta planta 
-  | head (nombre planta) == 'P' = aumentarVida planta 10
-  | especialidad planta == "Defensiva" = aumentarVida planta 5
+aumentarVidaPlanta criterio planta 
+  | (condicion criterio) planta = aumentarVida planta (potencia criterio)
   | otherwise = aumentarVida planta 0
 
 aumentarVida planta cantidad = planta{puntosDeVida = (puntosDeVida planta + cantidad) }

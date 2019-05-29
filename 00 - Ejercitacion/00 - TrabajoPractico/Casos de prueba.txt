@@ -1,4 +1,4 @@
-Punto 1 
+﻿Punto 1 
 Consultar el poder de ataque de una Peashooter
 >poderDeAtaque peaShooter
 2
@@ -78,6 +78,28 @@ True
 Saber si la línea 4 es mixta
 >lineaMixta linea4
 False
+
+Entrega 2
+
+En miJardin luego de una Navidad Zombie con "Cono de plástico", saber la cantidad de artículos del primer zombie de la tercera linea
+> length (articulos(head (zombies (lineas (aplicarPotenciador miJardin [navidadZombie "Cono de plástico"]) !! 2))))
+3
+
+En miJardin luego de una Navidad Zombie con "Cono de plástico", saber el daño del segundo zombie de la segunda linea
+> poderDeMordida (zombies (lineas (aplicarPotenciador miJardin [navidadZombie "Cono de plástico"]) !! 1)!!1)
+22
+
+En miJardin luego de un Catenaccio la cantidad de plantas de la cuarta línea
+> length (plantas (lineas (aplicarPotenciador miJardin [catenaccio])!! 3))
+2
+
+En miJardin luego de un Catenaccio la especie de la última planta de la cuarta línea
+> nombre (last (plantas (lineas (aplicarPotenciador miJardin [catenaccio])!! 0)))
+Nut
+
+En miJardin luego de un Riego de potencia 5 y condición de tener vida impar, saber la cantidad de plantas con vida par en la primera línea 
+> length (filter even (map puntosDeVida (plantas( head (lineas (aplicarRiego Criterio {potencia = 5, condicion = (1==).(flip mod 2).puntosDeVida } miJardin))))))
+3
 
 Punto 5
 
