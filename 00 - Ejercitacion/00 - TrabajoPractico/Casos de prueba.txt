@@ -20,7 +20,7 @@ Determinar cuantos articulos tienen un Ballon Zombie
 1
 
 Consultar el poder de mordida de un Newspaper Zombie
->poderMordida paperZombie
+>poderDeMordida paperZombie
 2
 
 Determinar el nivel de muerte de un Gargantuar
@@ -79,30 +79,7 @@ Saber si la línea 4 es mixta
 >lineaMixta linea4
 False
 
-Entrega 2
-
-En miJardin luego de una Navidad Zombie con "Cono de plástico", saber la cantidad de artículos del primer zombie de la tercera linea
-> length (articulos(head (zombies (lineas (aplicarPotenciador miJardin [navidadZombie "Cono de plástico"]) !! 2))))
-3
-
-En miJardin luego de una Navidad Zombie con "Cono de plástico", saber el daño del segundo zombie de la segunda linea
-> poderDeMordida (zombies (lineas (aplicarPotenciador miJardin [navidadZombie "Cono de plástico"]) !! 1)!!1)
-22
-
-En miJardin luego de un Catenaccio la cantidad de plantas de la cuarta línea
-> length (plantas (lineas (aplicarPotenciador miJardin [catenaccio])!! 3))
-2
-
-En miJardin luego de un Catenaccio la especie de la última planta de la cuarta línea
-> nombre (last (plantas (lineas (aplicarPotenciador miJardin [catenaccio])!! 0)))
-Nut
-
-En miJardin luego de un Riego de potencia 5 y condición de tener vida impar, saber la cantidad de plantas con vida par en la primera línea 
-> length (filter even (map puntosDeVida (plantas( head (lineas (aplicarRiego Criterio {potencia = 5, condicion = (1==).(flip mod 2).puntosDeVida } miJardin))))))
-3
-
-Punto 5
-
+--Punto 5
 Luego de un ataque de un PeaShooter a un Gargantuar, saber el nivel de muerte de Gargantuar
 >nivelDeMuerte (ataquePlantaA peaShooter gargantuar)
 28
@@ -131,44 +108,134 @@ Luego del ataque de un PeaShooter a un Zombie Base, saber la inicial del nombre 
 >head $ nombreZombie (ataquePlantaA peaShooter zombieBase)
 'm'
 
-Parte 2
-Comparar un PeaShooter y un Nut según la longitud del nombre
-> nombre (plantaMejorValorada (length.nombre) peaShooter nut)
-PeaShooter
-
-Comparar un PeaShooter y un Nut según vida
-> nombre (plantaMejorValorada (puntosDeVida) peaShooter nut)
-Nut
-
-Comparar la MVP de la línea 2 según vida
-> 
 
 
-Comparar la MVP de la línea 2 según soles que otorga
-> 
+----------------------------------------------------------------------
+Entrega 2:
+--Punto 1 (Entrega 1):
 
-Punto 6
-
-Luego de un ataque completo en la línea 3, saber cuántas plantas quedan en la misma
-> length (plantas (ataqueLinea linea3))
+Consultar la cantidad de soles que otorga un Sunflower
+> generaSoles sunFlower
 1
 
-Luego de un ataque completo en la línea 2, saber el poder de ataque de su primer zombie
-> poderDeMordida (head (zombies (ataqueLinea linea2)))
+Consultar el poder de mordida de un Zombie Base
+> poderDeMordida zombieBase
 1
 
-Luego de un ataque completo de la línea 2, saber el poder de ataque de su segundo zombie
-> poderDeMordida ((zombies (ataqueLinea linea2))!!1)
+Consultar el poder de mordida de un Newspaper Zombie
+> poderDeMordida paperZombie
 6
 
-Luego de un ataque masivo de la línea 1, saber cuántas plantas quedan
-> length (plantas (ataqueMasivo linea3))
+Consultar el poder de mordida de un Gargantuar
+> poderDeMordida gargantuar
+32
+
+--Punto 3 (Entrega 1):
+Saber si la línea 3 está en peligro
+> estaEnPeligro linea3
+True
+
+--Punto 5 (Entrega 1):
+
+Luego del ataque de un Gargantuar a un Nut, saber la vida del Nut
+> puntosDeVida (ataqueZombieA gargantuar nut)
+68
+
+Luego del ataque de un Balloon Zombie a un Sunflower, el nivel de vida del Sunflower.
+> puntosDeVida (ataqueZombieA balloonZombie sunFlower)
+2
+
+Luego del ataque de un Cactus a un Balloon Zombie, la cantidad de accesorios del Balloon Zombie.
+> length. articulos $ ataquePlantaA cactus balloonZombie
 0
 
-Saber si los zombies se comieron nuestro cerebro en miJardin
-> length (plantas(ataqueMasivo linea1))
+Luego del ataque de un Cactus a un Balloon Zombie, y un posterior ataque de ese mismo Balloon Zombie a un Sunflower, el nivel de vida del Sunflower.
+> puntosDeVida $ ataqueZombieA (ataquePlantaA cactus balloonZombie) sunFlower
+5
+
+Luego de un ataque de un Cactus a un Newspaper Zombie, la cantidad de accesorios del Newspaper Zombie.
+> length. articulos $ ataquePlantaA cactus paperZombie
+1
+
+
+-- Punto 3
+La cantidad de plantas que otorgan soles en la linea 3.
+> consulta1
+1
+
+Las plantas de una especie que empiece con P y tengan más de 4 de vida en la linea 2.
+> map nombre consulta2
+["PeaShooter","PeaShooter"]
+
+Si todas las plantas con vida que otorgan soles de la línea 2 son de la misma especie que la primera de la línea.
+>consulta3
+[]
+
+--Punto 4:
+
+En miJardin luego de una Navidad Zombie con "Cono de plástico", saber la cantidad de artículos del primer zombie de la tercera linea
+> length . articulos . head . zombies $ (lineas (navidadZombie miJardin "Cono de plastico"))!!2
 3
 
-Saber si los zombies se comieron nuestro cerebro en miJardin.
+En miJardin luego de una Navidad Zombie con "Cono de plástico", saber el daño del segundo zombie de la segunda linea
+> calcularDañoPaperZombie $ (zombies $ (lineas (navidadZombie miJardin "Cono de plastico"))!!1) !! 1
+22
+
+En miJardin luego de un Catenaccio la cantidad de plantas de la cuarta línea
+> length . plantas $ ((lineas $ catenaccio miJardin)!!3)
+2
+
+En miJardin luego de un Catenaccio la especie de la última planta de la cuarta línea
+> nombre . last . plantas $ ((lineas$catenaccio miJardin)!!0)
+"Nut"
+
+--corregir tp --En miJardin luego de un Riego de potencia 5 y condición de tener vida impar, saber la cantidad de plantas con vida par en la primera línea 
+> length (filter even (map puntosDeVida (plantas( head (lineas (aplicarRiego Criterio {potencia = 5, condicion = (1==).(flip mod 2).puntosDeVida } miJardin))))))
+3
+
+--corregit tp--En miJardin luego de un Riego de potencia 500 y condición de tener vida menor a 100, saber la cantidad de plantas con vida mayor a 100 en la segunda línea.
+> length.filter ((>100).puntosDeVida) $ plantas $(lineas $ aplicarRiego Criterio {potencia = 500, condicion = (<100).puntosDeVida } miJardin) !! 1
+3
+
+-- Punto 5
+Comparar un PeaShooter y un Nut según longitud del nombre.
+> nombre $ plantaMejorValorada (length.nombre) peaShooter nut
+"PeaShooter"
+
+Comparar un PeaShooter y un Nut según vida.
+> nombre $ plantaMejorValorada (puntosDeVida) peaShooter nut
+"Nut"
+
+Saber la MVP de la línea 2 según vida.
+> nombre $ mvp puntosDeVida (plantas linea2)
+"Nut"
+
+Saber la MVP de la línea 2 según soles que otorga.
+> nombre $ mvp generaSoles (plantas linea2)
+"Sunflower"
+
+--Punto 6
+Luego de un ataque completo en la línea 3, saber cuántas plantas quedan en la misma.
+> length . plantas . ataqueLinea $ linea3
+1
+
+Luego de un ataque completo en la línea 2, saber el poder de ataque de su primer zombie.
+> poderDeMordida . head . zombies . ataqueLinea $ linea2
+1
+
+Luego de un ataque completo en la línea 2, saber el poder de ataque de su segundo zombie.
+> poderDeMordida $ (!!1) . zombies . ataqueLinea $ linea2
+6
+
+Luego de un ataque masivo en la línea 3, saber cuántas plantas quedan en la misma.
+> length . plantas . ataqueMasivo $ linea3
+0
+
+Luego de un ataque masivo en la línea 1, saber cuántas plantas quedan.
+> length . plantas . ataqueMasivo $ linea1
+3
+
+Saber si los zombies se comieron nuestro cerebro en miJardin .
 > theZombiesAteYourBrains miJardin
 True
+
