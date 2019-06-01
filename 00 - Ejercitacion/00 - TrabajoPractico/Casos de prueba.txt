@@ -130,3 +130,45 @@ Luego del ataque de un Newspaper Zombie a un Repeater, saber la especialidad del
 Luego del ataque de un PeaShooter a un Zombie Base, saber la inicial del nombre del Zombie 
 >head $ nombreZombie (ataquePlantaA peaShooter zombieBase)
 'm'
+
+Parte 2
+Comparar un PeaShooter y un Nut según la longitud del nombre
+> nombre (plantaMejorValorada (length.nombre) peaShooter nut)
+PeaShooter
+
+Comparar un PeaShooter y un Nut según vida
+> nombre (plantaMejorValorada (puntosDeVida) peaShooter nut)
+Nut
+
+Comparar la MVP de la línea 2 según vida
+> 
+
+
+Comparar la MVP de la línea 2 según soles que otorga
+> 
+
+Punto 6
+
+Luego de un ataque completo en la línea 3, saber cuántas plantas quedan en la misma
+> length (plantas (ataqueLinea linea3))
+1
+
+Luego de un ataque completo en la línea 2, saber el poder de ataque de su primer zombie
+> poderDeMordida (head (zombies (ataqueLinea linea2)))
+1
+
+Luego de un ataque completo de la línea 2, saber el poder de ataque de su segundo zombie
+> poderDeMordida ((zombies (ataqueLinea linea2))!!1)
+6
+
+Luego de un ataque masivo de la línea 1, saber cuántas plantas quedan
+> length (plantas (ataqueMasivo linea3))
+0
+
+Saber si los zombies se comieron nuestro cerebro en miJardin
+> length (plantas(ataqueMasivo linea1))
+3
+
+Saber si los zombies se comieron nuestro cerebro en miJardin.
+> theZombiesAteYourBrains miJardin
+True
