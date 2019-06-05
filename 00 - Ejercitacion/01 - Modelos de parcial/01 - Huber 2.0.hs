@@ -4,7 +4,7 @@ data Chofer = Chofer{
     nombreChofer :: String,
     kilometraje :: Int,
     viajes :: [Viaje],
-    condiciones :: Condicion
+    condiciones :: [Condicion]
 }deriving (Show)
 
 data Viaje = Viaje {
@@ -19,9 +19,6 @@ data Cliente = Cliente {
 }deriving (Show)
 
 type Fecha = (Int, Int, Int)
-
-
-
 type Condicion = Viaje -> Bool
 
 valeTodo _ = True 
