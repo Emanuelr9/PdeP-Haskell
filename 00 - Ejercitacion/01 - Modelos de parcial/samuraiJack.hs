@@ -69,7 +69,7 @@ aku año cantSalud = Personaje {nombre = "Aku", salud=cantSalud, elementos = [me
 luchar :: Personaje -> Personaje -> (Personaje, Personaje)
 
 luchar atacante defensor 
-    | not (puedeVencer defensor atacante) = luchar (aplicarAtaque atacante (aplicarDefensa defensor)) atacante 
+    | not (puedeVencer (aplicarDefensa defensor) atacante) = luchar (aplicarAtaque atacante (aplicarDefensa defensor)) atacante 
     | otherwise = (aplicarAtaque atacante (aplicarDefensa defensor), atacante)
 
 aplicarDefensa personaje = aplicandoElementos personaje (map defensa (elementos personaje))
